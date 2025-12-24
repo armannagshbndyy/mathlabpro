@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>MathLab Pro</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2>📘 MathLab Pro</h2>
+    <button onclick="showSection('prime')">اعداد اول</button>
+    <button onclick="showSection('calc')">ماشین حساب</button>
+    <button onclick="showSection('stats')">تحلیل اعداد</button>
+    <button onclick="showSection('trig')">توابع و رادیکال</button>
+    <button onclick="showSection('geometry')">هندسه</button>
+    <button onclick="showSection('chart')">نمودار</button>
+    <button onclick="showSection('help')">راهنما</button>
+    <button onclick="showSection('about')">درباره</button>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="content">
+<!-- راهنما / Help -->
+<section id="help" class="card hidden">
+    <h3>راهنما - توابع و ابزارها</h3>
+  
+    <div class="help-inline">
+      <strong>اعداد اول:</strong> 
+      isPrime() → بررسی اول بودن عدد, 
+      checkPrime() → نمایش اول یا مرکب, 
+      listPrime() → لیست اعداد اول تا n, 
+      factorPrime() → نمایش فاکتورهای عدد;
+    </div>
+  
+    <div class="help-inline">
+      <strong>ماشین حساب:</strong> 
+      calcAdvanced() → محاسبه عبارات ریاضی (جمع، تفریق، ضرب، تقسیم، توان، پرانتز);
+      لطفا برای جواب درست رادیکال و ... را وقتی به رویش ضربه زدید عدد را داخل پرانتز بزارید و پرانتز ببندید.
+    </div>
+  
+    <div class="help-inline">
+      <strong>تحلیل لیست:</strong> 
+      analyzeList() → بیشترین، کمترین، مجموع و میانگین لیست اعداد;
+    </div>
+  
+    <div class="help-inline">
+      <strong>توابع و رادیکال:</strong> 
+      sqrt(x) → ریشه دوم،
+      cbrt(x) → ریشه سوم،
+      pow(x,y) → توان،
+      abs(x) → قدر مطلق،
+      sin(x) → سینوس (رادیان)،
+      cos(x) → کسینوس (رادیان)،
+      tan(x) → تانژانت (رادیان)،
+      log(x) → لگاریتم طبیعی،
+      log10(x) → لگاریتم پایه 10،
+      factorial(x) → فاکتوریل،
+      gcd(a,b) → ب.م.م،
+      lcm(a,b) → ک.م.م،
+      mean(...) → میانگین،
+      variance(...) → واریانس نمونه
+    </div>
+  
+    <div class="help-inline">
+      <strong>هندسه:</strong> 
+      squareArea(a) → مساحت مربع, 
+      rectArea(a,b) → مساحت مستطیل, 
+      circleArea(r) → مساحت دایره, 
+      squareVol(a) → حجم مکعب, 
+      cylinderVol(r,h) → حجم استوانه, 
+      sphereVol(r) → حجم کره;
+    </div>
+  
+    <div class="help-inline">
+      <strong>نمودار:</strong> 
+      drawChart() → رسم نمودار ساده از لیست اعداد;
+    </div>
+  </section>
+  
+  
+  
+    <!-- اعداد اول -->
+    <section id="prime" class="card">
+      <h3>اعداد اول و مرکب</h3>
+      <input id="primeInput" type="number" placeholder="یک عدد وارد کن">
+      <button onclick="checkPrime()">بررسی اول/مرکب</button>
+      <button onclick="listPrime()">لیست تا n</button>
+      <button onclick="factorPrime()">نمایش شمارنده</button>
+      <p id="primeResult"></p>
+    </section>
+
+    <!-- ماشین حساب پیشرفته -->
+    <section id="calc" class="card hidden">
+      <div class="calculator">
+        <div id="calc-display">0</div>
+      
+        <div class="calc-buttons">
+          <button onclick="clearCalc()">AC</button>
+          <button onclick="pressParen('(')">(</button>
+          <button onclick="pressParen(')')">)</button>
+          <button onclick="pressOp('÷')">÷</button>
+      
+          <button onclick="pressNum('7')">7</button>
+          <button onclick="pressNum('8')">8</button>
+          <button onclick="pressNum('9')">9</button>
+          <button onclick="pressOp('×')">×</button>
+      
+          <button onclick="pressNum('4')">4</button>
+          <button onclick="pressNum('5')">5</button>
+          <button onclick="pressNum('6')">6</button>
+          <button onclick="pressOp('−')">−</button>
+      
+          <button onclick="pressNum('1')">1</button>
+          <button onclick="pressNum('2')">2</button>
+          <button onclick="pressNum('3')">3</button>
+          <button onclick="pressOp('+')">+</button>
+      
+          <button onclick="pressNum('0')" class="zero">0</button>
+          <button onclick="pressNum('.')">.</button>
+          <button onclick="calculate()">=</button>
+      
+          <!-- علمی -->
+          <button onclick="pressSqrt()">√</button>
+          <button onclick="pressPow()">xʸ</button>
+          <button onclick="backspace()">⌫</button>
+        </div>
+      </div>
+      
+    </section>
+
+    <!-- تحلیل لیست اعداد -->
+    <section id="stats" class="card hidden">
+      <h3>تحلیل لیست اعداد</h3>
+      <input id="numList" placeholder="مثلاً: 1,2,3,4,5">
+      <button onclick="analyzeList()">تحلیل</button>
+      <p id="statsResult"></p>
+    </section>
+
+    <!-- توابع و رادیکال -->
+    <section id="trig" class="card hidden">
+      <h3>توابع و رادیکال</h3>
+      <input id="trigInput" placeholder="مثلاً: sin(30), sqrt(16), cbrt(27)" type="text">
+      <button onclick="calcTrig()">محاسبه</button>
+      <p id="trigResult"></p>
+    </section>
+
+    <!-- هندسه -->
+    <section id="geometry" class="card hidden">
+      <h3>ابزار هندسه</h3>
+      <p>مثال: مساحت/محیط مربع، مستطیل، مثلث، دایره، حجم مکعب، کره، استوانه، مخروط</p>
+      <input id="geoInput" placeholder="مثلاً: squareArea(5), circleVol(3)" type="text">
+      <button onclick="calcGeometry()">محاسبه</button>
+      <p id="geoResult"></p>
+    </section>
+
+    <!-- نمودار -->
+    <section id="chart" class="card hidden">
+      <h3>نمودار ساده</h3>
+      <input id="chartList" placeholder="مثلاً: 1,2,3,4,5" type="text">
+      <button onclick="drawChart()">نمایش نمودار</button>
+      <canvas id="chartCanvas"></canvas>
+    </section>
+
+    <!-- درباره -->
+    <section id="about" class="card hidden">
+      <h3>درباره MathLab Pro</h3>
+      <p>ابزار ریاضی فوق حرفه‌ای<br>مناسب دانش‌آموز و معلم<br>ساخته شده توسط آرمان نقشبندی</p>
+    </section>
+
+  </main>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
