@@ -144,6 +144,9 @@ button:active {
   font-size: 30px;
   text-align: right;
   margin-bottom: 12px;
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: plaintext;
 }
 
 .calc-buttons {
@@ -220,10 +223,17 @@ button:active {
     box-shadow: 0 20px 40px rgba(0,0,0,0.4);
     cursor: pointer;
   }
-
+  input {
+    direction: ltr;
+    text-align: left;
+  }
+  
   /* Calculator Mobile */
   #calc-display {
     font-size: 34px;
+    direction: ltr;
+    text-align: left;
+    unicode-bidi: plaintext;
   }
 
   .calc-buttons button {
@@ -289,6 +299,10 @@ button:active {
   background: #6ee7b7;
   color: #022c22;
 }
+}
+input {
+  direction: ltr;
+  text-align: left;
 }
 
 /* =====================
