@@ -1,199 +1,303 @@
-* { box-sizing: border-box; font-family: Vazirmatn; }
-body { margin:0; background: linear-gradient(135deg,#141e30,#243b55); color:white; }
-.app { display:flex; min-height:100vh; }
-.sidebar { width:230px; background:rgba(0,0,0,0.6); padding:20px; display:flex; flex-direction:column; }
-.sidebar h2 { text-align:center; margin-bottom:20px; }
-.sidebar button { background:transparent; border:1px solid #fff; color:white; padding:10px; margin:6px 0; border-radius:12px; cursor:pointer; }
-.sidebar button:hover { background:#2ecc71; color:black; }
-.content { flex:1; padding:30px; display:flex; flex-direction:column; align-items:center; }
-.card { background:rgba(255,255,255,0.1); padding:30px; width:100%; max-width:420px; border-radius:25px; box-shadow:0 20px 40px rgba(0,0,0,0.5); animation:fade 0.4s; }
-@keyframes fade { from{opacity:0; transform:scale(0.95);} to{opacity:1;} }
-input { width:100%; padding:10px; margin:8px 0; border-radius:12px; border:none; font-size:16px; }
-button { width:100%; padding:12px; border-radius:14px; border:none; background:#2ecc71; margin-top:8px; font-size:16px; cursor:pointer; }
-button:hover { opacity:0.85; }
-.hidden { display:none; }
-p { margin-top:12px; text-align:center; }
-canvas { width:100%; max-width:400px; height:200px; margin-top:12px; }
-
-/* MOBILE */
-@media(max-width:768px){
-  .app { flex-direction:column; }
-  .sidebar { width:100%; height:65px; flex-direction:row; justify-content:space-around; align-items:center; position:fixed; bottom:0; left:0; background:rgba(0,0,0,0.85); backdrop-filter:blur(10px); padding:5px; z-index:100; }
-  .sidebar h2 { display:none; }
-  .sidebar button { flex:1; margin:0 4px; padding:10px 0; font-size:12px; border-radius:14px; border:none; background:rgba(255,255,255,0.15); }
-  .sidebar button:hover { background:#2ecc71; color:black; }
-  .content { padding:20px 15px 90px; align-items:flex-start; }
-  .card { width:100%; max-width:100%; padding:22px; border-radius:22px; }
-  h3 { font-size:20px; text-align:center; }
-  input { font-size:16px; padding:12px; }
-  button { font-size:16px; padding:12px; border-radius:16px; }
+/* =====================
+   BASE
+===================== */
+* {
+  box-sizing: border-box;
+  font-family: "Vazirmatn", system-ui, sans-serif;
+  -webkit-tap-highlight-color: transparent;
 }
-.help-section {
-    background: rgba(255,255,255,0.05);
-    border-left: 4px solid #2ecc71;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 12px;
-  }
-  
-  .help-section h4 {
-    margin-top: 0;
-    color: #2ecc71;
-  }
-  
-  .help-section pre {
-    background: rgba(0,0,0,0.3);
-    padding: 10px;
-    border-radius: 10px;
-    overflow-x: auto;
-    font-size: 14px;
-    line-height: 1.5;
-    color: #fff;
-  }
-  .help-inline {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin: 6px 0;
-    padding: 8px;
-    background: rgba(255,255,255,0.05);
-    border-left: 4px solid #2ecc71;
-    border-radius: 12px;
-    font-size: 14px;
-  }
-  
-  .help-inline strong {
-    margin-right: 6px;
-    color: #2ecc71;
-  }
-  
-  .help-inline span {
-    margin-right: 8px;
-  }
-  
-  
-  .calculator {
-    max-width: 360px;
-    margin: auto;
-    background: #1e1e2f;
-    border-radius: 20px;
-    padding: 15px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-  }
-  
-  #calc-display {
-    background: black;
-    color: #00ffcc;
-    font-size: 28px;
-    padding: 15px;
-    text-align: right;
-    border-radius: 12px;
-    margin-bottom: 12px;
-    min-height: 50px;
-    overflow-x: auto;
-  }
-  
-  .calc-buttons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-  }
-  
-  .calc-buttons button {
-    padding: 15px;
-    font-size: 16px;
-    border: none;
-    border-radius: 12px;
-    background: #2d2d44;
-    color: white;
-    cursor: pointer;
-    transition: 0.2s;
-  }
-  
-  .calc-buttons button:hover {
-    background: #3f3f66;
-  }
-  
-  .calc-buttons .zero {
-    grid-column: span 2;
-  }
-  
-  .calc-buttons button:last-child {
-    background: #e74c3c;
-  }
-/* ===============================
-   MOBILE STYLE - CALCULATOR
-   =============================== */
-   @media (max-width: 768px) {
 
-    body {
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    }
-  
-    .calculator {
-      width: 100%;
-      max-width: 100%;
-      height: 100vh;
-      border-radius: 0;
-      padding: 16px;
-      box-shadow: none;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-  
-    #calc-display {
-      font-size: 36px;
-      padding: 20px;
-      min-height: 80px;
-      border-radius: 16px;
-      margin-bottom: 16px;
-      word-break: break-all;
-    }
-  
-    .calc-buttons {
-      flex: 1;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-    }
-  
-    .calc-buttons button {
-      font-size: 18px;
-      padding: 18px;
-      border-radius: 16px;
-    }
-  
-    .calc-buttons button:active {
-      transform: scale(0.95);
-      background: #4b4b7a;
-    }
-  
-    .calc-buttons .zero {
-      grid-column: span 2;
-    }
-  
-    /* دکمه مساوی */
-    .calc-buttons button:nth-child(19) {
-      background: linear-gradient(135deg, #00c6ff, #0072ff);
-      color: white;
-      font-weight: bold;
-    }
-  
-    /* دکمه AC */
-    .calc-buttons button:first-child {
-      background: #ff4757;
-      color: white;
-      font-weight: bold;
-    }
-  
-    /* دکمه‌های علمی */
-    .calc-buttons button:nth-last-child(-n+8) {
-      background: #1abc9c;
-      color: #0f2027;
-      font-weight: bold;
-    }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(180deg,#1f2a32,#24323b);
+  color: #e5e7eb;
+  overflow-x: hidden;
+}
+
+/* =====================
+   APP
+===================== */
+.app {
+  min-height: 100vh;
+  display: flex;
+}
+
+/* =====================
+   SIDEBAR (DESKTOP)
+===================== */
+.sidebar {
+  width: 240px;
+  background: #1c262e;
+  padding: 20px;
+  border-left: 1px solid #2e3a44;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebar h2 {
+  text-align: center;
+  color: #6ee7b7;
+}
+
+.sidebar button {
+  background: #26343f;
+  color: #e5e7eb;
+  border: none;
+  padding: 12px;
+  border-radius: 14px;
+}
+
+.sidebar button:hover {
+  background: #6ee7b7;
+  color: #1f2937;
+}
+
+/* =====================
+   CONTENT
+===================== */
+.content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+
+/* =====================
+   CARD
+===================== */
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: linear-gradient(180deg,#2a3945,#26343f);
+  border-radius: 26px;
+  padding: 22px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.35);
+  animation: rise 0.3s ease;
+  text-align: center;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hidden { display: none; }
+
+h3 {
+  margin-top: 0;
+  color: #7dd3fc;
+}
+
+/* =====================
+   INPUTS
+===================== */
+input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 16px;
+  border: none;
+  background: #1c262e;
+  color: #e5e7eb;
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+input::placeholder {
+  color: #9ca3af;
+}
+
+/* =====================
+   BUTTON
+===================== */
+button {
+  width: 100%;
+  padding: 14px;
+  border-radius: 18px;
+  border: none;
+  background: linear-gradient(135deg,#34d399,#10b981);
+  color: #0f172a;
+  font-size: 16px;
+  margin-top: 8px;
+}
+
+button:active {
+  transform: scale(0.96);
+}
+
+/* =====================
+   CALCULATOR
+===================== */
+.calculator {
+  background: #1c262e;
+  border-radius: 22px;
+  padding: 14px;
+}
+
+#calc-display {
+  background: #020617;
+  color: #6ee7b7;
+  border-radius: 16px;
+  padding: 16px;
+  font-size: 30px;
+  text-align: right;
+  margin-bottom: 12px;
+}
+
+.calc-buttons {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 10px;
+}
+
+.calc-buttons button {
+  background: #26343f;
+  color: #e5e7eb;
+  font-size: 18px;
+}
+
+.calc-buttons button:last-child {
+  background: #22c55e;
+  color: #052e16;
+}
+
+.calc-buttons .zero {
+  grid-column: span 2;
+}
+
+/* =====================
+   HELP
+===================== */
+.help-inline {
+  background: #1c262e;
+  border-radius: 14px;
+  padding: 10px;
+  font-size: 14px;
+  margin: 8px 0;
+}
+
+/* =====================
+   MOBILE MODE
+===================== */
+@media (max-width: 768px) {
+
+  .app {
+    flex-direction: column;
   }
-    
+
+  /* ❌ مخفی سایدبار */
+  .sidebar {
+    display: none;
+  }
+
+  .content {
+    padding: 20px 14px 20px;
+  }
+
+  .card {
+    max-width: 100%;
+    border-radius: 28px;
+    padding: 22px;
+  }
+
+  /* 🔘 Floating Tool Button */
+  .app::after {
+    content: "☰";
+    position: fixed;
+    bottom: 18px;
+    right: 18px;
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg,#22c55e,#4ade80);
+    color: #022c22;
+    font-size: 26px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    cursor: pointer;
+  }
+
+  /* Calculator Mobile */
+  #calc-display {
+    font-size: 34px;
+  }
+
+  .calc-buttons button {
+    padding: 18px;
+  }
+}
+
+/* =====================
+   SCROLLBAR
+===================== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 10px;
+}
+/* =========================
+   FLOATING MENU STYLE
+========================= */
+
+#fab-btn {
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg,#22c55e,#4ade80);
+  color: #022c22;
+  font-size: 26px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  cursor: pointer;
+  z-index: 1000;
+}
+
+#fab-menu {
+  position: fixed;
+  bottom: 86px;
+  right: 18px;
+  background: #1c262e;
+  border-radius: 18px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+  transform: scale(0.8);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.25s ease;
+  z-index: 999;
+}
+
+#fab-menu.open {
+  transform: scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#fab-menu button {
+  background: #26343f;
+  color: #e5e7eb;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 14px;
+  text-align: right;
+}
+
+#fab-menu button:hover {
+  background: #6ee7b7;
+  color: #022c22;
+}
