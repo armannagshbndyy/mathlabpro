@@ -48,7 +48,20 @@ function showSection(id){
     let avg=sum/nums.length;
     document.getElementById("statsResult").textContent=`بیشترین: ${max} | کمترین: ${min} | مجموع: ${sum} | میانگین: ${avg.toFixed(2)}`;
   }
-  
+  /* ============================
+   DEGREE TRIG FUNCTIONS
+============================ */
+
+function sinDeg(deg) {
+  return Math.sin(deg * Math.PI / 180);
+}
+
+function cosDeg(deg) {
+  return Math.cos(deg * Math.PI / 180);
+}
+function tanDeg(deg) {
+  return Math.tan(deg * Math.PI / 180);
+}
   function calcTrig(){
     let expr = document.getElementById("trigInput").value;
     try{
@@ -57,9 +70,9 @@ function showSection(id){
         .replace(/cbrt/g,"Math.cbrt")
         .replace(/pow/g,"Math.pow")
         .replace(/abs/g,"Math.abs")
-        .replace(/sin/g,"Math.sin")
-        .replace(/cos/g,"Math.cos")
-        .replace(/tan/g,"Math.tan")
+        .replace(/sin/g,"sinDeg")
+        .replace(/cos/g,"cosDeg")
+        .replace(/tan/g,"tanDeg")
         .replace(/log10/g,"Math.log10")
         .replace(/log/g,"Math.log")
         .replace(/factorial/g,"factorial")
@@ -205,52 +218,287 @@ function calculate(){
 }
 
 
-/* ============================
-   FLOATING TOOL MENU (MOBILE)
-============================ */
+/* =================================
+   FLOATING TOOL MENU - PRO
+================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-  // فقط برای موبایل
+
+  /* ---------- Restore Last Section ---------- */
+  const last = localStorage.getItem("lastSection");
+  if (last) showSection(last);
+
   if (window.innerWidth > 768) return;
 
-  // دکمه شناور
+  /* ---------- FAB BUTTON ---------- */
   const fab = document.createElement("div");
   fab.id = "fab-btn";
   fab.innerHTML = "☰";
   document.body.appendChild(fab);
 
-  // منوی ابزار
+  /* ---------- MENU ---------- */
   const menu = document.createElement("div");
   menu.id = "fab-menu";
   menu.innerHTML = `
-    <button onclick="openSection('prime')">اعداد اول</button>
-    <button onclick="openSection('calc')">ماشین حساب</button>
-    <button onclick="openSection('stats')">تحلیل</button>
-    <button onclick="openSection('trig')">توابع</button>
-    <button onclick="openSection('geometry')">هندسه</button>
-    <button onclick="openSection('chart')">نمودار</button>
-    <button onclick="openSection('help')">راهنما</button>
-    <button onclick="openSection('about')">درباره</button>
+    <button onclick="openSection('prime')">${iconPrime()} اعداد اول</button>
+    <button onclick="openSection('calc')">${iconCalc()} ماشین حساب</button>
+    <button onclick="openSection('stats')">${iconStats()} تحلیل</button>
+    <button onclick="openSection('trig')">${iconTrig()} توابع</button>
+    <button onclick="openSection('geometry')">${iconGeo()} هندسه</button>
+    <button onclick="openSection('chart')">${iconChart()} نمودار</button>
+    <button onclick="openSection('help')">${iconHelp()} راهنما</button>
+    <button onclick="openSection('about')">${iconInfo()} درباره</button>
   `;
   document.body.appendChild(menu);
 
   let open = false;
 
-  fab.addEventListener("click", () => {
+  /* ---------- Toggle ---------- */
+  fab.addEventListener("click", (e) => {
+    e.stopPropagation();
     open = !open;
     menu.classList.toggle("open", open);
+    fab.classList.toggle("active", open);
     fab.innerHTML = open ? "✕" : "☰";
   });
 
+  /* ---------- Close on Outside Click ---------- */
+  document.addEventListener("click", () => {
+    if (!open) return;
+    open = false;
+    menu.classList.remove("open");
+    fab.classList.remove("active");
+    fab.innerHTML = "☰";
+  });
+
+  menu.addEventListener("click", e => e.stopPropagation());
 });
 
-/* باز کردن سکشن + بستن منو */
+/* ---------- Open Section + Save ---------- */
 function openSection(id) {
   showSection(id);
+  localStorage.setItem("lastSection", id);
+
   const menu = document.getElementById("fab-menu");
   const fab = document.getElementById("fab-btn");
   if (menu && fab) {
     menu.classList.remove("open");
+    fab.classList.remove("active");
     fab.innerHTML = "☰";
   }
+}
+
+/* =================================
+   SVG ICONS
+================================= */
+function iconPrime(){return `🔢`;}
+function iconCalc(){return `🧮`;}
+function iconStats(){return `📊`;}
+function iconTrig(){return `📐`;}
+function iconGeo(){return `📦`;}
+function iconChart(){return `📈`;}
+function iconHelp(){return `❓`;}
+function iconInfo(){return `ℹ️`;}
+
+
+/* ============================
+   CHARTS
+============================ */
+
+let chartInstance = null;
+
+function getChartData() {
+  const data = document
+    .getElementById("chartList")
+    .value
+    .split(",")
+    .map(n => Number(n.trim()))
+    .filter(n => !isNaN(n));
+
+  return data;
+}
+
+function destroyChart() {
+  if (chartInstance) {
+    chartInstance.destroy();
+    chartInstance = null;
+  }
+}
+
+/* ---------- Bar Chart ---------- */
+function drawBarChart() {
+  const data = getChartData();
+  if (!data.length) return;
+
+  destroyChart();
+
+  chartInstance = new Chart(chartCanvas, {
+    type: "bar",
+    data: {
+      labels: data.map((_, i) => `داده ${i + 1}`),
+      datasets: [{
+        label: "مقادیر",
+        data,
+        backgroundColor: "#34d399"
+      }]
+    },
+    options: chartOptions()
+  });
+}
+
+/* ---------- Line Chart ---------- */
+function drawLineChart() {
+  const data = getChartData();
+  if (!data.length) return;
+
+  destroyChart();
+
+  chartInstance = new Chart(chartCanvas, {
+    type: "line",
+    data: {
+      labels: data.map((_, i) => `نقطه ${i + 1}`),
+      datasets: [{
+        label: "روند تغییر",
+        data,
+        borderColor: "#60a5fa",
+        backgroundColor: "rgba(96,165,250,0.2)",
+        tension: 0.4,
+        fill: true
+      }]
+    },
+    options: chartOptions()
+  });
+}
+
+/* ---------- Pie Chart ---------- */
+function drawPieChart() {
+  const data = getChartData();
+  if (!data.length) return;
+
+  destroyChart();
+
+  chartInstance = new Chart(chartCanvas, {
+    type: "pie",
+    data: {
+      labels: data.map((_, i) => `بخش ${i + 1}`),
+      datasets: [{
+        data,
+        backgroundColor: [
+          "#34d399",
+          "#60a5fa",
+          "#fbbf24",
+          "#f87171",
+          "#a78bfa",
+          "#22d3ee"
+        ]
+      }]
+    },
+    options: {
+      plugins: {
+        legend: {
+          labels: {
+            color: "#e5e7eb",
+            font: { family: "Vazirmatn" }
+          }
+        }
+      }
+    }
+  });
+}
+
+/* ---------- Shared Options ---------- */
+function chartOptions() {
+  return {
+    responsive: true,
+    plugins: {
+      legend: {
+        labels: {
+          color: "#e5e7eb",
+          font: { family: "Vazirmatn" }
+        }
+      }
+    },
+    scales: {
+      x: {
+        ticks: { color: "#cbd5f5" },
+        grid: { color: "#334155" }
+      },
+      y: {
+        ticks: { color: "#cbd5f5" },
+        grid: { color: "#334155" }
+      }
+    }
+  };
+}
+/* ============================
+   GEOMETRY UI
+============================ */
+
+let currentGeo = null;
+
+function selectGeo(type) {
+  currentGeo = type;
+  document.getElementById("geo-form").classList.remove("hidden");
+
+  const inputs = document.getElementById("geo-inputs");
+  inputs.innerHTML = "";
+
+  if (type === "squareArea" || type === "squareVol") {
+    inputs.innerHTML = `
+      <input id="geoA" type="number" placeholder="طول ضلع">
+    `;
+  }
+
+  if (type === "rectArea") {
+    inputs.innerHTML = `
+      <input id="geoA" type="number" placeholder="طول">
+      <input id="geoB" type="number" placeholder="عرض">
+    `;
+  }
+
+  if (type === "circleArea" || type === "sphereVol") {
+    inputs.innerHTML = `
+      <input id="geoR" type="number" placeholder="شعاع">
+    `;
+  }
+
+  if (type === "cylinderVol") {
+    inputs.innerHTML = `
+      <input id="geoR" type="number" placeholder="شعاع">
+      <input id="geoH" type="number" placeholder="ارتفاع">
+    `;
+  }
+}
+
+function calcGeo() {
+  let res = 0;
+
+  const a = Number(document.getElementById("geoA")?.value);
+  const b = Number(document.getElementById("geoB")?.value);
+  const r = Number(document.getElementById("geoR")?.value);
+  const h = Number(document.getElementById("geoH")?.value);
+
+  switch (currentGeo) {
+    case "squareArea":
+      res = a * a;
+      break;
+    case "rectArea":
+      res = a * b;
+      break;
+    case "circleArea":
+      res = Math.PI * r * r;
+      break;
+    case "squareVol":
+      res = a ** 3;
+      break;
+    case "cylinderVol":
+      res = Math.PI * r * r * h;
+      break;
+    case "sphereVol":
+      res = (4 / 3) * Math.PI * r ** 3;
+      break;
+  }
+
+  document.getElementById("geoResult").textContent =
+    `نتیجه: ${res.toFixed(2)}`;
 }
