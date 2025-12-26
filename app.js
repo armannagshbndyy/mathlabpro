@@ -203,3 +203,54 @@ function calculate(){
     updateDisplay();
   }
 }
+
+
+/* ============================
+   FLOATING TOOL MENU (MOBILE)
+============================ */
+
+document.addEventListener("DOMContentLoaded", () => {
+  // فقط برای موبایل
+  if (window.innerWidth > 768) return;
+
+  // دکمه شناور
+  const fab = document.createElement("div");
+  fab.id = "fab-btn";
+  fab.innerHTML = "☰";
+  document.body.appendChild(fab);
+
+  // منوی ابزار
+  const menu = document.createElement("div");
+  menu.id = "fab-menu";
+  menu.innerHTML = `
+    <button onclick="openSection('prime')">اعداد اول</button>
+    <button onclick="openSection('calc')">ماشین حساب</button>
+    <button onclick="openSection('stats')">تحلیل</button>
+    <button onclick="openSection('trig')">توابع</button>
+    <button onclick="openSection('geometry')">هندسه</button>
+    <button onclick="openSection('chart')">نمودار</button>
+    <button onclick="openSection('help')">راهنما</button>
+    <button onclick="openSection('about')">درباره</button>
+  `;
+  document.body.appendChild(menu);
+
+  let open = false;
+
+  fab.addEventListener("click", () => {
+    open = !open;
+    menu.classList.toggle("open", open);
+    fab.innerHTML = open ? "✕" : "☰";
+  });
+
+});
+
+/* باز کردن سکشن + بستن منو */
+function openSection(id) {
+  showSection(id);
+  const menu = document.getElementById("fab-menu");
+  const fab = document.getElementById("fab-btn");
+  if (menu && fab) {
+    menu.classList.remove("open");
+    fab.innerHTML = "☰";
+  }
+}
