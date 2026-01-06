@@ -316,7 +316,7 @@ document.addEventListener("DOMContentLoaded", () => {
 /* ---------- Open Section + Save ---------- */
 function openSection(id) {
   showSection(id);
-  localStorage.setItem("lastSection", id);
+
 
   const menu = document.getElementById("fab-menu");
   const fab = document.getElementById("fab-btn");
@@ -590,6 +590,7 @@ function calcGeometry() {
       "❌ فرمول هندسه اشتباه است";
   }
 }
+
 
 
 
