@@ -110,21 +110,51 @@ function tanDeg(deg) {
     return nums.reduce((a,b)=>a+b,0) / nums.length;
   }
   // هندسه
-  function calcGeometry(){
-    let expr=document.getElementById("geoInput").value;
-    try{
-      let replaced=expr.replace(/squareArea\((\d+)\)/g,(m,p1)=>Math.pow(RegExp.$1,2))
-                       .replace(/rectArea\((\d+),(\d+)\)/g,(m,p1,p2)=>p1*p2)
-                       .replace(/circleArea\((\d+)\)/g,(m,r)=>Math.PI*Math.pow(r,2))
-                       .replace(/squareVol\((\d+)\)/g,(m,a)=>Math.pow(a,3))
-                       .replace(/cylinderVol\((\d+),(\d+)\)/g,(m,r,h)=>Math.PI*Math.pow(r,2)*h)
-                       .replace(/sphereVol\((\d+)\)/g,(m,r)=>4/3*Math.PI*Math.pow(r,3));
-      let result=eval(replaced);
-      document.getElementById("geoResult").textContent="نتیجه: "+result;
-    }catch{
-      document.getElementById("geoResult").textContent="فرمول هندسه اشتباه!";
-    }
+function calcGeometry() {
+  let expr = document.getElementById("geoInput").value;
+
+  try {
+    let replaced = expr
+      // --- Area ---
+      .replace(/squareArea\(([\d.]+)\)/g, (_, a) => a * a)
+      .replace(/rectArea\(([\d.]+),([\d.]+)\)/g, (_, a, b) => a * b)
+      .replace(/circleArea\(([\d.]+)\)/g, (_, r) => Math.PI * r * r)
+      .replace(/triangleArea\(([\d.]+),([\d.]+)\)/g, (_, b, h) => (b * h) / 2)
+      .replace(/trapezoidArea\(([\d.]+),([\d.]+),([\d.]+)\)/g,
+        (_, a, b, h) => ((+a + +b) * h) / 2)
+      .replace(/parallelogramArea\(([\d.]+),([\d.]+)\)/g,
+        (_, b, h) => b * h)
+      .replace(/rhombusArea\(([\d.]+),([\d.]+)\)/g,
+        (_, d1, d2) => (d1 * d2) / 2)
+      .replace(/ellipseArea\(([\d.]+),([\d.]+)\)/g,
+        (_, a, b) => Math.PI * a * b)
+
+      // --- Volume ---
+      .replace(/squareVol\(([\d.]+)\)/g, (_, a) => a ** 3)
+      .replace(/rectPrismVol\(([\d.]+),([\d.]+),([\d.]+)\)/g,
+        (_, a, b, h) => a * b * h)
+      .replace(/cylinderVol\(([\d.]+),([\d.]+)\)/g,
+        (_, r, h) => Math.PI * r * r * h)
+      .replace(/coneVol\(([\d.]+),([\d.]+)\)/g,
+        (_, r, h) => (Math.PI * r * r * h) / 3)
+      .replace(/sphereVol\(([\d.]+)\)/g,
+        (_, r) => (4 / 3) * Math.PI * r ** 3)
+      .replace(/hemisphereVol\(([\d.]+)\)/g,
+        (_, r) => (2 / 3) * Math.PI * r ** 3)
+      .replace(/pyramidVol\(([\d.]+),([\d.]+)\)/g,
+        (_, base, h) => (base * h) / 3);
+
+    let result = eval(replaced);
+
+    document.getElementById("geoResult").textContent =
+      "نتیجه: " + result.toFixed(3);
+
+  } catch {
+    document.getElementById("geoResult").textContent =
+      "❌ فرمول هندسه اشتباه است";
   }
+}
+
   
   // نمودار ساده
   function drawChart(){
@@ -440,65 +470,62 @@ function selectGeo(type) {
   currentGeo = type;
   document.getElementById("geo-form").classList.remove("hidden");
 
+  const map = {
+    squareArea: ["ضلع"],
+    rectArea: ["طول", "عرض"],
+    circleArea: ["شعاع"],
+    triangleArea: ["قاعده", "ارتفاع"],
+    trapezoidArea: ["قاعده اول", "قاعده دوم", "ارتفاع"],
+    parallelogramArea: ["قاعده", "ارتفاع"],
+    rhombusArea: ["قطر اول", "قطر دوم"],
+    ellipseArea: ["نیم‌محور بزرگ", "نیم‌محور کوچک"],
+
+    squareVol: ["ضلع"],
+    rectPrismVol: ["طول", "عرض", "ارتفاع"],
+    cylinderVol: ["شعاع", "ارتفاع"],
+    coneVol: ["شعاع", "ارتفاع"],
+    sphereVol: ["شعاع"],
+    hemisphereVol: ["شعاع"],
+    pyramidVol: ["مساحت قاعده", "ارتفاع"]
+  };
+
   const inputs = document.getElementById("geo-inputs");
   inputs.innerHTML = "";
 
-  if (type === "squareArea" || type === "squareVol") {
-    inputs.innerHTML = `
-      <input id="geoA" type="number" placeholder="طول ضلع">
+  map[type].forEach((label, i) => {
+    inputs.innerHTML += `
+      <input id="geo${i}" type="number" step="any" placeholder="${label}">
     `;
-  }
+  });
 
-  if (type === "rectArea") {
-    inputs.innerHTML = `
-      <input id="geoA" type="number" placeholder="طول">
-      <input id="geoB" type="number" placeholder="عرض">
-    `;
-  }
-
-  if (type === "circleArea" || type === "sphereVol") {
-    inputs.innerHTML = `
-      <input id="geoR" type="number" placeholder="شعاع">
-    `;
-  }
-
-  if (type === "cylinderVol") {
-    inputs.innerHTML = `
-      <input id="geoR" type="number" placeholder="شعاع">
-      <input id="geoH" type="number" placeholder="ارتفاع">
-    `;
-  }
+  document.getElementById("geoResult").textContent = "";
 }
 
 function calcGeo() {
-  let res = 0;
-
-  const a = Number(document.getElementById("geoA")?.value);
-  const b = Number(document.getElementById("geoB")?.value);
-  const r = Number(document.getElementById("geoR")?.value);
-  const h = Number(document.getElementById("geoH")?.value);
+  const v = i => Number(document.getElementById("geo" + i).value);
+  let r = 0;
 
   switch (currentGeo) {
-    case "squareArea":
-      res = a * a;
-      break;
-    case "rectArea":
-      res = a * b;
-      break;
-    case "circleArea":
-      res = Math.PI * r * r;
-      break;
-    case "squareVol":
-      res = a ** 3;
-      break;
-    case "cylinderVol":
-      res = Math.PI * r * r * h;
-      break;
-    case "sphereVol":
-      res = (4 / 3) * Math.PI * r ** 3;
-      break;
+    case "squareArea": r = v(0) ** 2; break;
+    case "rectArea": r = v(0) * v(1); break;
+    case "circleArea": r = Math.PI * v(0) ** 2; break;
+    case "triangleArea": r = (v(0) * v(1)) / 2; break;
+    case "trapezoidArea": r = ((v(0) + v(1)) * v(2)) / 2; break;
+    case "parallelogramArea": r = v(0) * v(1); break;
+    case "rhombusArea": r = (v(0) * v(1)) / 2; break;
+    case "ellipseArea": r = Math.PI * v(0) * v(1); break;
+
+    case "squareVol": r = v(0) ** 3; break;
+    case "rectPrismVol": r = v(0) * v(1) * v(2); break;
+    case "cylinderVol": r = Math.PI * v(0) ** 2 * v(1); break;
+    case "coneVol": r = (Math.PI * v(0) ** 2 * v(1)) / 3; break;
+    case "sphereVol": r = (4 / 3) * Math.PI * v(0) ** 3; break;
+    case "hemisphereVol": r = (2 / 3) * Math.PI * v(0) ** 3; break;
+    case "pyramidVol": r = (v(0) * v(1)) / 3; break;
   }
 
   document.getElementById("geoResult").textContent =
-    `نتیجه: ${res.toFixed(2)}`;
+    `نتیجه: ${r.toFixed(3)}`;
 }
+
+
