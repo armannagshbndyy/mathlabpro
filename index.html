@@ -8,6 +8,17 @@
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#ffffff">
 <script src="https://cdn.adivery.com/ads.js"></script>
+  <!-- Adivery Web Banner -->
+<script>
+  (function(){
+    var ad = document.createElement("script");
+    ad.async = true;
+    ad.src = "https://adivery.com/adivery.js";
+    document.body.appendChild(ad);
+  })();
+</script>
+
+<div data-adivery-id="4e2beacd-be5c-40d2-8757-4072cb348ffc"></div>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -240,43 +251,11 @@
   </main>
 
 </div>
-<script>
-let userInteracted = false;
-let adShown = false;
 
-document.addEventListener("click", function () {
-  if (!userInteracted) {
-    userInteracted = true;
-
-    // بعد از 7 ثانیه خودکار اجرا میشه
-    setTimeout(() => {
-      if (!adShown && window.Adivery) {
-        Adivery.showInterstitialAd(
-          "76325bff-cf32-49ae-9b04-b79189be3cee"
-        );
-        adShown = true;
-      }
-    }, 7000);
-  }
-});
-</script>
-  <div id="adivery-banner"
-     style="position:fixed;bottom:0;left:0;width:100%;text-align:center;z-index:9999;">
-</div>
-
-<script>
-  window.addEventListener("load", function () {
-    if (window.Adivery) {
-      Adivery.showBannerAd(
-        "eaa0c01d-a3ce-4e9d-827c-57de27c99ff2",
-        "adivery-banner"
-      );
-    }
-  });
-</script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
+
 
 
