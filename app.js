@@ -140,6 +140,59 @@ function pressNum(n){
   calcExp += n;
   updateDisplay();
 }
+let display = document.getElementById('calc-display');
+let expression = '';
+
+// وارد کردن اعداد و عملیات
+function press(val){
+  expression += val;
+  display.innerText = expression;
+}
+
+// وارد کردن توابع مثلثاتی و علمی
+function pressFunc(func){
+  expression += func;
+  display.innerText = expression;
+}
+
+// پاک کردن کامل
+function clearCalc(){
+  expression = '';
+  display.innerText = '0';
+}
+
+// حذف آخرین کاراکتر
+function backspace(){
+  expression = expression.slice(0, -1);
+  display.innerText = expression || '0';
+}
+
+// اضافه کردن کسر بصری
+function pressFrac(){
+  expression += '()/()';
+  display.innerText = expression;
+}
+
+// محاسبه و حل معادله با Algebrite و Math.js
+function calculate(){
+  try{
+    // جایگزینی نماد × و ÷ با * و /
+    let expr = expression.replace(/×/g, '*').replace(/÷/g, '/');
+
+    // محاسبه عددی با math.js
+    let numericResult = math.evaluate(expr);
+
+    // محاسبه نمادین با Algebrite
+    let symbolicResult = Algebrite.run(expr);
+
+    // نمایش نتیجه ترکیبی
+    display.innerText = `${numericResult} (≈ ${symbolicResult})`;
+    expression = numericResult.toString();
+  } catch(err){
+    display.innerText = 'خطا';
+    expression = '';
+  }
+}
 
 /* عملگرها */
 function pressOp(op){
@@ -537,6 +590,7 @@ function calcGeometry() {
       "❌ فرمول هندسه اشتباه است";
   }
 }
+
 
 
 
