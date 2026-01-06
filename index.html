@@ -17,7 +17,9 @@
     document.body.appendChild(ad);
   })();
 </script>
-
+<!-- کتابخانه حل معادلات نمادین -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/algebrite/1.5.0/algebrite.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.10.0/math.min.js"></script>
 <div data-adivery-id="4e2beacd-be5c-40d2-8757-4072cb348ffc"></div>
 <link rel="stylesheet" href="style.css">
 </head>
@@ -109,44 +111,47 @@
       <p id="primeResult"></p>
     </section>
 
-    <!-- ماشین حساب پیشرفته -->
-    <section id="calc" class="card hidden">
-      <div class="calculator">
-        <div id="calc-display">0</div>
-      
-        <div class="calc-buttons">
-          <button onclick="clearCalc()">AC</button>
-          <button onclick="pressParen('(')">(</button>
-          <button onclick="pressParen(')')">)</button>
-          <button onclick="pressOp('÷')">÷</button>
-      
-          <button onclick="pressNum('7')">7</button>
-          <button onclick="pressNum('8')">8</button>
-          <button onclick="pressNum('9')">9</button>
-          <button onclick="pressOp('×')">×</button>
-      
-          <button onclick="pressNum('4')">4</button>
-          <button onclick="pressNum('5')">5</button>
-          <button onclick="pressNum('6')">6</button>
-          <button onclick="pressOp('−')">−</button>
-      
-          <button onclick="pressNum('1')">1</button>
-          <button onclick="pressNum('2')">2</button>
-          <button onclick="pressNum('3')">3</button>
-          <button onclick="pressOp('+')">+</button>
-      
-          <button onclick="pressNum('0')" class="zero">0</button>
-          <button onclick="pressNum('.')">.</button>
-          <button onclick="calculate()">=</button>
-      
-          <!-- علمی -->
-          <button onclick="pressSqrt()">√</button>
-          <button onclick="pressPow()">xʸ</button>
-          <button onclick="backspace()">⌫</button>
-        </div>
-      </div>
-      
-    </section>
+<section id="calc" class="card">
+  <div class="calculator">
+    <div id="calc-display">0</div> <!-- نمایشگر -->
+
+    <div class="calc-buttons">
+      <!-- عملیات پایه -->
+      <button onclick="clearCalc()">AC</button>
+      <button onclick="press('(')">(</button>
+      <button onclick="press(')')">)</button>
+      <button onclick="press('/')">÷</button>
+
+      <button onclick="press('7')">7</button>
+      <button onclick="press('8')">8</button>
+      <button onclick="press('9')">9</button>
+      <button onclick="press('*')">×</button>
+
+      <button onclick="press('4')">4</button>
+      <button onclick="press('5')">5</button>
+      <button onclick="press('6')">6</button>
+      <button onclick="press('-')">−</button>
+
+      <button onclick="press('1')">1</button>
+      <button onclick="press('2')">2</button>
+      <button onclick="press('3')">3</button>
+      <button onclick="press('+')">+</button>
+
+      <button onclick="press('0')" class="zero">0</button>
+      <button onclick="press('.')">.</button>
+      <button onclick="calculate()">=</button>
+
+      <!-- علمی و حرفه‌ای -->
+      <button onclick="press('sqrt(')">√</button>
+      <button onclick="press('^')">xʸ</button>
+      <button onclick="pressFrac()">a/b</button>
+      <button onclick="pressFunc('sin(')">sin</button>
+      <button onclick="pressFunc('cos(')">cos</button>
+      <button onclick="pressFunc('tan(')">tan</button>
+      <button onclick="backspace()">⌫</button>
+    </div>
+  </div>
+</section>
 
     <!-- تحلیل لیست اعداد -->
     <section id="stats" class="card hidden">
@@ -343,6 +348,7 @@
 <script src="app.js"></script>
 </body>
 </html>
+
 
 
 
