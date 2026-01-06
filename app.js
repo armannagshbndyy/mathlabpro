@@ -419,6 +419,80 @@ function chartOptions() {
 /* ============================
    GEOMETRY UI
 ============================ */
+/* ============================
+   GEOMETRY CALCULATOR - COMPLETE
+============================ */
+
+let currentGeo = null;
+
+// --- نقشه تمام اشکال و ورودی‌ها ---
+const geoMap = {
+  // Areas (مساحت‌ها)
+  squareArea: ["طول ضلع"],                   // مربع
+  rectArea: ["طول", "عرض"],                  // مستطیل
+  circleArea: ["شعاع"],                      // دایره
+  triangleArea: ["قاعده", "ارتفاع"],         // مثلث
+  trapezoidArea: ["قاعده اول", "قاعده دوم", "ارتفاع"], // ذوزنقه
+  parallelogramArea: ["قاعده", "ارتفاع"],    // متوازی‌الاضلاع
+  rhombusArea: ["قطر اول", "قطر دوم"],      // لوزی
+  ellipseArea: ["نیم‌محور بزرگ", "نیم‌محور کوچک"], // بیضی
+
+  // Volumes (حجم‌ها)
+  squareVol: ["طول ضلع"],                    // مکعب
+  rectPrismVol: ["طول", "عرض", "ارتفاع"],   // مکعب مستطیل
+  cylinderVol: ["شعاع", "ارتفاع"],          // استوانه
+  coneVol: ["شعاع", "ارتفاع"],              // مخروط
+  sphereVol: ["شعاع"],                       // کره
+  hemisphereVol: ["شعاع"],                   // نیم کره
+  pyramidVol: ["مساحت قاعده", "ارتفاع"]     // هرم
+};
+
+/* ---------- انتخاب شکل و ساخت فرم ---------- */
+function selectGeo(type) {
+  currentGeo = type;
+  const inputs = document.getElementById("geo-inputs");
+  inputs.innerHTML = "";
+  document.getElementById("geo-form").classList.remove("hidden");
+
+  geoMap[type].forEach((label, i) => {
+    inputs.innerHTML += `
+      <input id="geo${i}" type="number" step="any" placeholder="${label}">
+    `;
+  });
+
+  document.getElementById("geoResult").textContent = "";
+}
+
+/* ---------- محاسبه بر اساس فرم ---------- */
+function calcGeo() {
+  const v = i => Number(document.getElementById("geo" + i)?.value || 0);
+  let r = 0;
+
+  switch (currentGeo) {
+    // --- Areas ---
+    case "squareArea": r = v(0) ** 2; break;
+    case "rectArea": r = v(0) * v(1); break;
+    case "circleArea": r = Math.PI * v(0) ** 2; break;
+    case "triangleArea": r = (v(0) * v(1)) / 2; break;
+    case "trapezoidArea": r = ((v(0) + v(1)) * v(2)) / 2; break;
+    case "parallelogramArea": r = v(0) * v(1); break;
+    case "rhombusArea": r = (v(0) * v(1)) / 2; break;
+    case "ellipseArea": r = Math.PI * v(0) * v(1); break;
+
+    // --- Volumes ---
+    case "squareVol": r = v(0) ** 3; break;
+    case "rectPrismVol": r = v(0) * v(1) * v(2); break;
+    case "cylinderVol": r = Math.PI * v(0) ** 2 * v(1); break;
+    case "coneVol": r = (Math.PI * v(0) ** 2 * v(1)) / 3; break;
+    case "sphereVol": r = (4 / 3) * Math.PI * v(0) ** 3; break;
+    case "hemisphereVol": r = (2 / 3) * Math.PI * v(0) ** 3; break;
+    case "pyramidVol": r = (v(0) * v(1)) / 3; break;
+  }
+
+  document.getElementById("geoResult").textContent = `نتیجه: ${r.toFixed(3)}`;
+}
+
+/* ---------- محاسبه با فرمول دستی (geoInput) ---------- */
 function calcGeometry() {
   let expr = document.getElementById("geoInput").value;
 
@@ -463,71 +537,6 @@ function calcGeometry() {
       "❌ فرمول هندسه اشتباه است";
   }
 }
-let currentGeo = null;
 
-function selectGeo(type) {
-  currentGeo = type;
-  document.getElementById("geo-form").classList.remove("hidden");
 
-  const geoMap = {
-    // Areas
-    squareArea: ["طول ضلع"],
-    rectArea: ["طول", "عرض"],
-    circleArea: ["شعاع"],
-    triangleArea: ["قاعده", "ارتفاع"],
-    trapezoidArea: ["قاعده اول", "قاعده دوم", "ارتفاع"],
-    parallelogramArea: ["قاعده", "ارتفاع"],
-    rhombusArea: ["قطر اول", "قطر دوم"],
-    ellipseArea: ["نیم‌محور بزرگ", "نیم‌محور کوچک"],
-
-    // Volumes
-    squareVol: ["طول ضلع"],
-    rectPrismVol: ["طول", "عرض", "ارتفاع"],
-    cylinderVol: ["شعاع", "ارتفاع"],
-    coneVol: ["شعاع", "ارتفاع"],
-    sphereVol: ["شعاع"],
-    hemisphereVol: ["شعاع"],
-    pyramidVol: ["مساحت قاعده", "ارتفاع"]
-  };
-
-  const inputs = document.getElementById("geo-inputs");
-  inputs.innerHTML = "";
-
-  geoMap[type].forEach((label, i) => {
-    inputs.innerHTML += `
-      <input id="geo${i}" type="number" step="any" placeholder="${label}">
-    `;
-  });
-
-  document.getElementById("geoResult").textContent = "";
-}
-function calcGeo() {
-  const v = i => Number(document.getElementById("geo" + i)?.value || 0);
-  let r = 0;
-
-  switch (currentGeo) {
-
-    // --- Areas ---
-    case "squareArea": r = v(0) ** 2; break;
-    case "rectArea": r = v(0) * v(1); break;
-    case "circleArea": r = Math.PI * v(0) ** 2; break;
-    case "triangleArea": r = (v(0) * v(1)) / 2; break;
-    case "trapezoidArea": r = ((v(0) + v(1)) * v(2)) / 2; break;
-    case "parallelogramArea": r = v(0) * v(1); break;
-    case "rhombusArea": r = (v(0) * v(1)) / 2; break;
-    case "ellipseArea": r = Math.PI * v(0) * v(1); break;
-
-    // --- Volumes ---
-    case "squareVol": r = v(0) ** 3; break;
-    case "rectPrismVol": r = v(0) * v(1) * v(2); break;
-    case "cylinderVol": r = Math.PI * v(0) ** 2 * v(1); break;
-    case "coneVol": r = (Math.PI * v(0) ** 2 * v(1)) / 3; break;
-    case "sphereVol": r = (4 / 3) * Math.PI * v(0) ** 3; break;
-    case "hemisphereVol": r = (2 / 3) * Math.PI * v(0) ** 3; break;
-    case "pyramidVol": r = (v(0) * v(1)) / 3; break;
-  }
-
-  document.getElementById("geoResult").textContent =
-    `نتیجه: ${r.toFixed(3)}`;
-}
 
