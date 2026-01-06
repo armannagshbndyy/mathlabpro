@@ -109,51 +109,7 @@ function tanDeg(deg) {
   function mean(...nums){
     return nums.reduce((a,b)=>a+b,0) / nums.length;
   }
-  // هندسه
-function calcGeometry() {
-  let expr = document.getElementById("geoInput").value;
 
-  try {
-    let replaced = expr
-      // --- Area ---
-      .replace(/squareArea\(([\d.]+)\)/g, (_, a) => a * a)
-      .replace(/rectArea\(([\d.]+),([\d.]+)\)/g, (_, a, b) => a * b)
-      .replace(/circleArea\(([\d.]+)\)/g, (_, r) => Math.PI * r * r)
-      .replace(/triangleArea\(([\d.]+),([\d.]+)\)/g, (_, b, h) => (b * h) / 2)
-      .replace(/trapezoidArea\(([\d.]+),([\d.]+),([\d.]+)\)/g,
-        (_, a, b, h) => ((+a + +b) * h) / 2)
-      .replace(/parallelogramArea\(([\d.]+),([\d.]+)\)/g,
-        (_, b, h) => b * h)
-      .replace(/rhombusArea\(([\d.]+),([\d.]+)\)/g,
-        (_, d1, d2) => (d1 * d2) / 2)
-      .replace(/ellipseArea\(([\d.]+),([\d.]+)\)/g,
-        (_, a, b) => Math.PI * a * b)
-
-      // --- Volume ---
-      .replace(/squareVol\(([\d.]+)\)/g, (_, a) => a ** 3)
-      .replace(/rectPrismVol\(([\d.]+),([\d.]+),([\d.]+)\)/g,
-        (_, a, b, h) => a * b * h)
-      .replace(/cylinderVol\(([\d.]+),([\d.]+)\)/g,
-        (_, r, h) => Math.PI * r * r * h)
-      .replace(/coneVol\(([\d.]+),([\d.]+)\)/g,
-        (_, r, h) => (Math.PI * r * r * h) / 3)
-      .replace(/sphereVol\(([\d.]+)\)/g,
-        (_, r) => (4 / 3) * Math.PI * r ** 3)
-      .replace(/hemisphereVol\(([\d.]+)\)/g,
-        (_, r) => (2 / 3) * Math.PI * r ** 3)
-      .replace(/pyramidVol\(([\d.]+),([\d.]+)\)/g,
-        (_, base, h) => (base * h) / 3);
-
-    let result = eval(replaced);
-
-    document.getElementById("geoResult").textContent =
-      "نتیجه: " + result.toFixed(3);
-
-  } catch {
-    document.getElementById("geoResult").textContent =
-      "❌ فرمول هندسه اشتباه است";
-  }
-}
 
   
   // نمودار ساده
@@ -463,15 +419,59 @@ function chartOptions() {
 /* ============================
    GEOMETRY UI
 ============================ */
+function calcGeometry() {
+  let expr = document.getElementById("geoInput").value;
 
+  try {
+    let replaced = expr
+      // --- Areas ---
+      .replace(/squareArea\(([\d.]+)\)/g, (_, a) => a * a)
+      .replace(/rectArea\(([\d.]+),([\d.]+)\)/g, (_, a, b) => a * b)
+      .replace(/circleArea\(([\d.]+)\)/g, (_, r) => Math.PI * r * r)
+      .replace(/triangleArea\(([\d.]+),([\d.]+)\)/g, (_, b, h) => (b * h) / 2)
+      .replace(/trapezoidArea\(([\d.]+),([\d.]+),([\d.]+)\)/g,
+        (_, a, b, h) => ((+a + +b) * h) / 2)
+      .replace(/parallelogramArea\(([\d.]+),([\d.]+)\)/g,
+        (_, b, h) => b * h)
+      .replace(/rhombusArea\(([\d.]+),([\d.]+)\)/g,
+        (_, d1, d2) => (d1 * d2) / 2)
+      .replace(/ellipseArea\(([\d.]+),([\d.]+)\)/g,
+        (_, a, b) => Math.PI * a * b)
+
+      // --- Volumes ---
+      .replace(/squareVol\(([\d.]+)\)/g, (_, a) => a ** 3)
+      .replace(/rectPrismVol\(([\d.]+),([\d.]+),([\d.]+)\)/g,
+        (_, a, b, h) => a * b * h)
+      .replace(/cylinderVol\(([\d.]+),([\d.]+)\)/g,
+        (_, r, h) => Math.PI * r * r * h)
+      .replace(/coneVol\(([\d.]+),([\d.]+)\)/g,
+        (_, r, h) => (Math.PI * r * r * h) / 3)
+      .replace(/sphereVol\(([\d.]+)\)/g,
+        (_, r) => (4 / 3) * Math.PI * r ** 3)
+      .replace(/hemisphereVol\(([\d.]+)\)/g,
+        (_, r) => (2 / 3) * Math.PI * r ** 3)
+      .replace(/pyramidVol\(([\d.]+),([\d.]+)\)/g,
+        (_, base, h) => (base * h) / 3);
+
+    let result = eval(replaced);
+
+    document.getElementById("geoResult").textContent =
+      "نتیجه: " + result.toFixed(3);
+
+  } catch {
+    document.getElementById("geoResult").textContent =
+      "❌ فرمول هندسه اشتباه است";
+  }
+}
 let currentGeo = null;
 
 function selectGeo(type) {
   currentGeo = type;
   document.getElementById("geo-form").classList.remove("hidden");
 
-  const map = {
-    squareArea: ["ضلع"],
+  const geoMap = {
+    // Areas
+    squareArea: ["طول ضلع"],
     rectArea: ["طول", "عرض"],
     circleArea: ["شعاع"],
     triangleArea: ["قاعده", "ارتفاع"],
@@ -480,7 +480,8 @@ function selectGeo(type) {
     rhombusArea: ["قطر اول", "قطر دوم"],
     ellipseArea: ["نیم‌محور بزرگ", "نیم‌محور کوچک"],
 
-    squareVol: ["ضلع"],
+    // Volumes
+    squareVol: ["طول ضلع"],
     rectPrismVol: ["طول", "عرض", "ارتفاع"],
     cylinderVol: ["شعاع", "ارتفاع"],
     coneVol: ["شعاع", "ارتفاع"],
@@ -492,7 +493,7 @@ function selectGeo(type) {
   const inputs = document.getElementById("geo-inputs");
   inputs.innerHTML = "";
 
-  map[type].forEach((label, i) => {
+  geoMap[type].forEach((label, i) => {
     inputs.innerHTML += `
       <input id="geo${i}" type="number" step="any" placeholder="${label}">
     `;
@@ -500,12 +501,13 @@ function selectGeo(type) {
 
   document.getElementById("geoResult").textContent = "";
 }
-
 function calcGeo() {
-  const v = i => Number(document.getElementById("geo" + i).value);
+  const v = i => Number(document.getElementById("geo" + i)?.value || 0);
   let r = 0;
 
   switch (currentGeo) {
+
+    // --- Areas ---
     case "squareArea": r = v(0) ** 2; break;
     case "rectArea": r = v(0) * v(1); break;
     case "circleArea": r = Math.PI * v(0) ** 2; break;
@@ -515,6 +517,7 @@ function calcGeo() {
     case "rhombusArea": r = (v(0) * v(1)) / 2; break;
     case "ellipseArea": r = Math.PI * v(0) * v(1); break;
 
+    // --- Volumes ---
     case "squareVol": r = v(0) ** 3; break;
     case "rectPrismVol": r = v(0) * v(1) * v(2); break;
     case "cylinderVol": r = Math.PI * v(0) ** 2 * v(1); break;
@@ -527,5 +530,4 @@ function calcGeo() {
   document.getElementById("geoResult").textContent =
     `نتیجه: ${r.toFixed(3)}`;
 }
-
 
