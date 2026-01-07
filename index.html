@@ -124,23 +124,20 @@
   </section>
   <!--محاسبه-->
   
-  <section id="advancedCalculator" class="card hidden">
-    <h3>🤖 محاسبات هوشمند</h3>
-  
-    <textarea id="aiInput" rows="4"
-      placeholder="مسئله‌ات رو بنویس...
-  مثال:
-  حل کن: 3x + 7 = 16
-  مشتق sin(x^2)
-  میانگین 1,2,3,4"></textarea>
-  
+<section id="advancedCalculator" class="card hidden">
+  <h3>🤖 محاسبات هوشمند</h3><span>(بزودی)</span>
 
-  <button onclick="solveAIWithServer()">حل کن</button>
+  <textarea id="aiInput" rows="4" placeholder="مسئله‌ات رو بنویس...
+مثال:
+حل کن: 3x + 7 = 16
+مشتق sin(x^2)
+میانگین 1,2,3,4"></textarea>
 
-  <div id="aiOutput"></div>
+  <button onclick="solveAI()">حل کن</button>
 
-  </section>
-  
+  <div id="aiOutput" style="margin-top:10px; white-space: pre-wrap;"></div>
+</section>
+
       
     <!-- اعداد اول -->
     <section id="prime" class="card">
@@ -350,6 +347,7 @@
 <script src="app.js"></script>
 </body>
 </html>
+
 
 
 
