@@ -283,6 +283,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <button onclick="openSection('calc')">${iconCalc()} ماشین حساب</button>
     <button onclick="openSection('stats')">${iconStats()} تحلیل</button>
     <button onclick="openSection('trig')">${iconTrig()} توابع</button>
+    <button onclick="showSection('advancedCalculator')">${iconadvancedCalculator()}محاسبات</button>
     <button onclick="openSection('geometry')">${iconGeo()} هندسه</button>
     <button onclick="openSection('chart')">${iconChart()} نمودار</button>
     <button onclick="openSection('help')">${iconHelp()} راهنما</button>
@@ -334,6 +335,7 @@ function iconPrime(){return `🔢`;}
 function iconCalc(){return `🧮`;}
 function iconStats(){return `📊`;}
 function iconTrig(){return `📐`;}
+function iconadvancedCalculator(){return `🧠`;}
 function iconGeo(){return `📦`;}
 function iconChart(){return `📈`;}
 function iconHelp(){return `❓`;}
@@ -592,6 +594,43 @@ function calcGeometry() {
 }
 
 
+
+async function solveAI() {
+  const input = document.getElementById("aiInput").value.trim();
+  const out = document.getElementById("aiOutput");
+  out.textContent = "⏳ در حال پردازش ...";
+
+  if (!input) {
+    out.textContent = "❗ لطفاً یک مسئله وارد کنید";
+    return;
+  }
+
+  try {
+    // درخواست به OpenAI API
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer sk-INSERT-YOUR-API-KEY-HERE"  // ← کلید API خود را اینجا وارد کنید
+      },
+      body: JSON.stringify({
+        model: "gpt-4-mini",  // مدل مورد استفاده
+        messages: [
+          { role: "system", content: "تو یک دستیار ریاضی حرفه‌ای هستی و جواب‌ها را مرحله به مرحله بده." },
+          { role: "user", content: input }
+        ],
+        max_tokens: 500
+      })
+    });
+
+    const data = await response.json();
+    // نمایش پاسخ در صفحه
+    out.innerHTML = `<strong>✅ جواب:</strong><br>${data.choices[0].message.content}`;
+
+  } catch (err) {
+    out.textContent = "❌ خطا در پردازش: " + err.message;
+  }
+}
 
 
 
