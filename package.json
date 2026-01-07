@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "MathLab Pro - Frontend + AI Backend",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "vercel dev"
   },
