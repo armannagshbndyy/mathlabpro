@@ -34,6 +34,7 @@
     <button onclick="showSection('calc')">ماشین حساب</button>
     <button onclick="showSection('stats')">تحلیل اعداد</button>
     <button onclick="showSection('trig')">توابع و رادیکال</button>
+    <button onclick="showSection('advancedCalculator')">محاسبات</button>
     <button onclick="showSection('geometry')">هندسه</button>
     <button onclick="showSection('chart')">نمودار</button>
     <button onclick="showSection('help')">راهنما</button>
@@ -42,6 +43,8 @@
 
   <!-- Main Content -->
   <main class="content">
+
+    
 <!-- راهنما / Help -->
 <section id="help" class="card hidden">
     <h3>راهنما - توابع و ابزارها</h3>
@@ -82,7 +85,28 @@
       mean(...) → میانگین،
       variance(...) → واریانس نمونه
     </div>
-  
+    <div class="help-inline">
+      <strong>🤖 محاسبات هوشمند:</strong> 
+      در این بخش می‌توانید مسئله‌ی ریاضی خود را به صورت **متنی و آزاد** وارد کنید و سیستم به صورت هوشمند حل می‌کند.
+      <br><br>
+      <u>نمونه ورودی‌ها:</u>
+      <ul>
+        <li><strong>حل معادله:</strong> <code>حل کن: 3x + 7 = 16</code></li>
+        <li><strong>مشتق:</strong> <code>مشتق x^3</code> یا <code>مشتق sin(x^2)</code></li>
+        <li><strong>انتگرال:</strong> <code>انتگرال x^2</code></li>
+        <li><strong>محاسبات عددی:</strong> <code>(5+3)*2</code> یا <code>sqrt(16) + 4^2</code></li>
+        <li><strong>لیست اعداد:</strong> <code>1,2,3,4,5</code> (محاسبه میانگین و مجموع)</li>
+      </ul>
+      <u>نکات مهم:</u>
+      <ul>
+        <li>متغیر پیش‌فرض معادلات <strong>x</strong> است</li>
+        <li>برای توان از <code>^</code> استفاده کنید</li>
+        <li>توابع مثل <code>sin</code>، <code>cos</code>، <code>sqrt</code> باید به انگلیسی نوشته شوند</li>
+        <li>برای عبارات پیچیده از پرانتز استفاده کنید</li>
+      </ul>
+      <em>توجه: اگر مسئله شما پیچیده بود، آن را ساده‌تر یا مرحله به مرحله وارد کنید.</em>
+    </div>
+    
     <div class="help-inline">
       <strong>هندسه:</strong> 
       squareArea(a) → مساحت مربع, 
@@ -98,9 +122,26 @@
       drawChart() → رسم نمودار ساده از لیست اعداد;
     </div>
   </section>
+  <!--محاسبه-->
   
+  <section id="advancedCalculator" class="card hidden">
+    <h3>🤖 محاسبات هوشمند</h3>
   
+    <textarea id="aiInput" rows="4"
+      placeholder="مسئله‌ات رو بنویس...
+  مثال:
+  حل کن: 3x + 7 = 16
+  مشتق sin(x^2)
+  میانگین 1,2,3,4"></textarea>
   
+
+  <button onclick="solveAIWithServer()">حل کن</button>
+
+  <div id="aiOutput"></div>
+
+  </section>
+  
+      
     <!-- اعداد اول -->
     <section id="prime" class="card">
       <h3>اعداد اول و مرکب</h3>
@@ -309,7 +350,6 @@
 <script src="app.js"></script>
 </body>
 </html>
-
 
 
 
