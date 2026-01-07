@@ -593,42 +593,7 @@ function calcGeometry() {
   }
 }
 
-async function solveAI() {
-  const input = document.getElementById("aiInput").value.trim();
-  const out = document.getElementById("aiOutput");
-  out.textContent = "⏳ در حال پردازش ...";
 
-  if (!input) {
-    out.textContent = "❗ لطفاً یک مسئله وارد کنید";
-    return;
-  }
-
-  try {
-    // درخواست به OpenAI API
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer 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"  // ← کلید API خود را اینجا وارد کنید
-      },
-      body: JSON.stringify({
-        model: "gpt-4-mini",  // مدل مورد استفاده
-        messages: [
-          { role: "system", content: "تو یک دستیار ریاضی حرفه‌ای هستی و جواب‌ها را مرحله به مرحله بده." },
-          { role: "user", content: input }
-        ],
-        max_tokens: 500
-      })
-    });
-
-    const data = await response.json();
-    // نمایش پاسخ در صفحه
-    out.innerHTML = `<strong>✅ جواب:</strong><br>${data.choices[0].message.content}`;
-
-  } catch (err) {
-    out.textContent = "❌ خطا در پردازش: " + err.message;
-  }
-}
 
 
 
