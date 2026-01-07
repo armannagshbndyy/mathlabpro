@@ -596,6 +596,33 @@ function calcGeometry() {
 
 
 
+async function solveAIWithServer() {
+  const input = document.getElementById("aiInput").value;
+  const output = document.getElementById("aiOutput");
+
+  if (!input.trim()) {
+    output.innerHTML = "❗ لطفاً یک سوال وارد کنید";
+    return;
+  }
+
+  output.innerHTML = "⏳ در حال تحلیل سوال...";
+
+  try {
+    const response = await fetch("/api/solve", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ question: input })
+    });
+
+    const data = await response.json();
+    output.innerText = data.answer;
+  } catch (err) {
+    output.innerHTML = "❌ خطا در ارتباط با سرور";
+  }
+}
+
 
 
 
