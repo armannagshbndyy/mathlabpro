@@ -1,0 +1,15 @@
+{
+  "name": "mathlab-pro",
+  "version": "1.0.0",
+  "description": "MathLab Pro - Frontend + AI Backend",
+  "main": "index.js",
+  "scripts": {
+    "start": "vercel dev"
+  },
+  "dependencies": {
+    "openai": "^4.31.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
