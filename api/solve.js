@@ -8,26 +8,20 @@ export default async function handler(req, res) {
   const { question } = req.body;
 
   try {
-    const openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY
-    });
+    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
     const completion = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
-        {
-          role: "system",
-          content: "تو یک دستیار فارسی برای حل مسائل ریاضی، معادله، مشتق و محاسبات هستی."
-        },
+        { role: "system", content: "تو یک دستیار فارسی برای حل مسائل ریاضی هستی." },
         { role: "user", content: question }
       ]
     });
 
-    res.status(200).json({
-      answer: completion.choices[0].message.content
-    });
+    res.status(200).json({ answer: completion.choices[0].message.content });
 
   } catch (e) {
+    console.error(e);
     res.status(500).json({ answer: "خطا در پردازش سوال" });
   }
 }
