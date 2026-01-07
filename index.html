@@ -125,17 +125,18 @@
   <!--محاسبه-->
   
 <section id="advancedCalculator" class="card hidden">
-  <h3>🤖 محاسبات هوشمند</h3><span>(بزودی)</span>
-
-  <textarea id="aiInput" rows="4" placeholder="مسئله‌ات رو بنویس...
-مثال:
-حل کن: 3x + 7 = 16
-مشتق sin(x^2)
-میانگین 1,2,3,4"></textarea>
-
-  <button onclick="solveAI()">حل کن</button>
-
-  <div id="aiOutput" style="margin-top:10px; white-space: pre-wrap;"></div>
+    <h3>🤖 محاسبات هوشمند</h3><span>(نسخه دمو)</span>
+  
+    <textarea id="aiInput" rows="4"
+      placeholder="مسئله‌ات رو بنویس...
+      مثال:
+      حل کن: 3x + 7 = 16
+      مشتق sin(x^2)
+      میانگین 1,2,3,4"></textarea>
+  
+    <button onclick="solveAIWithServer()">حل کن</button>
+  
+    <div id="aiOutput"></div>
 </section>
 
       
@@ -342,11 +343,68 @@
   </main>
 
 </div>
+<script>
+  // تابع برای ارسال درخواست به API و گرفتن نتیجه
+  async function solveAIWithServer() {
+    // گرفتن ورودی کاربر از تکست‌AREA
+    const userInput = document.getElementById('aiInput').value;
 
+    // اگر ورودی خالی باشه، به کاربر هشدار داده میشه
+    if (!userInput.trim()) {
+      alert("لطفاً یک مسئله وارد کنید.");
+      return;
+    }
+
+    // آدرس API OpenAI
+    const apiUrl = 'https://api.openai.com/v1/completions';
+    
+    // API Key خودت رو اینجا وارد کن
+    const apiKey = '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'; 
+
+    // ساخت داده‌های درخواست به OpenAI
+    const requestBody = {
+      model: 'text-davinci-003', // یا هر مدل دیگه‌ای که بخوای استفاده کنی
+      prompt: userInput,
+      max_tokens: 100,  // حداکثر تعداد کلمات در پاسخ
+      temperature: 0.7,  // درجه خلاقیت (بین 0 تا 1)
+    };
+
+    // ارسال درخواست به OpenAI با استفاده از fetch
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      const data = await response.json(); // پاسخ رو به فرمت JSON تبدیل می‌کنیم
+
+      // نمایش نتیجه در بخش aiOutput
+      if (data.choices && data.choices[0]) {
+        document.getElementById('aiOutput').innerHTML = `
+          <strong>نتیجه:</strong> ${data.choices[0].text.trim()}
+        `;
+      } else {
+        document.getElementById('aiOutput').innerHTML = `
+          <strong>خطا:</strong> جواب مناسبی دریافت نشد.
+        `;
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      document.getElementById('aiOutput').innerHTML = `
+        <strong>خطا:</strong> مشکلی در ارتباط با سرور به وجود آمد.
+      `;
+    }
+  }
+</script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
+
 
 
 
