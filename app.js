@@ -593,8 +593,6 @@ function calcGeometry() {
   }
 }
 
-
-
 async function solveAI() {
   const input = document.getElementById("aiInput").value.trim();
   const out = document.getElementById("aiOutput");
@@ -611,7 +609,7 @@ async function solveAI() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer sk-INSERT-YOUR-API-KEY-HERE"  // ← کلید API خود را اینجا وارد کنید
+        "Authorization": "Bearer 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"  // ← کلید API خود را اینجا وارد کنید
       },
       body: JSON.stringify({
         model: "gpt-4-mini",  // مدل مورد استفاده
@@ -631,6 +629,11 @@ async function solveAI() {
     out.textContent = "❌ خطا در پردازش: " + err.message;
   }
 }
+
+
+
+
+
 
 
 
