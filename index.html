@@ -24,22 +24,26 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+<nav class="bottom-nav">
+  <button onclick="showSection('prime')">🔢<span>اعداد اول</span></button>
+  <button onclick="showSection('calc')">🧮<span>ماشین حساب</span></button>
+  <button onclick="showSection('stats')">📊<span>تحلیل</span></button>
+  <button onclick="showSection('trig')">📐<span>توابع</span></button>
+  <button onclick="showSection('advancedCalculator')">🤖<span>هوشمند</span></button>
+  <button onclick="showSection('geometry')">📏<span>هندسه</span></button>
+  <button onclick="showSection('chart')">📈<span>نمودار</span></button>
+  <button onclick="showSection('help')">❓<span>راهنما</span></button>
+  <button onclick="showSection('about')">ℹ️<span>درباره</span></button>
+</nav>
 <div class="app">
 
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <h2>📘 MathLab Pro</h2>
-    <button onclick="showSection('prime')">اعداد اول</button>
-    <button onclick="showSection('calc')">ماشین حساب</button>
-    <button onclick="showSection('stats')">تحلیل اعداد</button>
-    <button onclick="showSection('trig')">توابع و رادیکال</button>
-    <button onclick="showSection('advancedCalculator')">محاسبات</button>
-    <button onclick="showSection('geometry')">هندسه</button>
-    <button onclick="showSection('chart')">نمودار</button>
-    <button onclick="showSection('help')">راهنما</button>
-    <button onclick="showSection('about')">درباره</button>
-  </aside>
+  <div class="app">
+<header class="app-header">
+  <div class="header-content">
+    <img src="./icon.png" alt="mathlab logo" />
+    <span class="app-title">Mathlab Pro</span>
+  </div>
+</header>
 
   <!-- Main Content -->
   <main class="content">
@@ -48,7 +52,7 @@
 <!-- راهنما / Help -->
 <section id="help" class="card hidden">
     <h3>راهنما - توابع و ابزارها</h3>
-  
+  <br>
     <div class="help-inline">
       <strong>اعداد اول:</strong> 
       isPrime() → بررسی اول بودن عدد, 
@@ -56,18 +60,18 @@
       listPrime() → لیست اعداد اول تا n, 
       factorPrime() → نمایش فاکتورهای عدد;
     </div>
-  
+  <br>
     <div class="help-inline">
       <strong>ماشین حساب:</strong> 
       calcAdvanced() → محاسبه عبارات ریاضی (جمع، تفریق، ضرب، تقسیم، توان، پرانتز);
       لطفا برای جواب درست رادیکال و ... را وقتی به رویش ضربه زدید عدد را داخل پرانتز بزارید و پرانتز ببندید.
     </div>
-  
+  <br>
     <div class="help-inline">
       <strong>تحلیل لیست:</strong> 
       analyzeList() → بیشترین، کمترین، مجموع و میانگین لیست اعداد;
     </div>
-  
+  <br>
     <div class="help-inline">
       <strong>توابع و رادیکال:</strong> 
       sqrt(x) → ریشه دوم،
@@ -84,7 +88,7 @@
       lcm(a,b) → ک.م.م،
       mean(...) → میانگین،
       variance(...) → واریانس نمونه
-    </div>
+    </div><br>
     <div class="help-inline">
       <strong>🤖 محاسبات هوشمند:</strong> 
       در این بخش می‌توانید مسئله‌ی ریاضی خود را به صورت **متنی و آزاد** وارد کنید و سیستم به صورت هوشمند حل می‌کند.
@@ -106,7 +110,7 @@
       </ul>
       <em>توجه: اگر مسئله شما پیچیده بود، آن را ساده‌تر یا مرحله به مرحله وارد کنید.</em>
     </div>
-    
+    <br>
     <div class="help-inline">
       <strong>هندسه:</strong> 
       squareArea(a) → مساحت مربع, 
@@ -116,14 +120,14 @@
       cylinderVol(r,h) → حجم استوانه, 
       sphereVol(r) → حجم کره;
     </div>
-  
+  <br>
     <div class="help-inline">
       <strong>نمودار:</strong> 
       drawChart() → رسم نمودار ساده از لیست اعداد;
     </div>
   </section>
   <!--محاسبه-->
-  
+  <br>
 <section id="advancedCalculator" class="card hidden">
   <h3>🤖 محاسبات هوشمند</h3><span>(نسخه دمو)</span>
 
@@ -335,11 +339,33 @@
     </section>
     
 
-    <!-- درباره -->
-    <section id="about" class="card hidden">
-      <h3>درباره MathLab Pro</h3>
-      <p>ابزار ریاضی فوق حرفه‌ای<br>مناسب دانش‌آموز و معلم<br>ساخته شده توسط آرمان نقشبندی</p>
-    </section>
+<section id="about" class="card hidden about-card">
+
+  <h3>ℹ️ درباره Mathlab Pro</h3>
+
+  <p class="about-text">
+    ابزار درسی فوق حرفه‌ای<br>
+    مناسب دانش‌آموز و معلم<br>
+    ساخته شده توسط <strong>آرمان نقشبندی</strong>
+  </p>
+
+  <div class="about-links">
+
+    <a href="https://instagram.com/arman_nagshbandi" target="_blank" class="social-btn instagram">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png">
+    </a>
+
+    <a href="https://wa.me/+989109440058" target="_blank" class="social-btn whatsapp">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
+    </a>
+
+    <a href="https://myket.ir/app/com.armannagshbndi.mathlabpro" target="_blank" class="social-btn myket">
+      <img src="https://myket.ir/core/images/logo/icon.svg">
+    </a>
+
+  </div>
+
+</section>
 
   </main>
 
