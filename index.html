@@ -1,407 +1,499 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
-<meta charset="UTF-8">
-<title>MathLab Pro</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#ffffff">
-<script src="https://cdn.adivery.com/ads.js"></script>
+  <meta charset="UTF-8">
+  <title>MathLab Pro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#ffffff">
+  <script src="https://cdn.adivery.com/ads.js"></script>
   <!-- Adivery Web Banner -->
-<script>
-  (function(){
-    var ad = document.createElement("script");
-    ad.async = true;
-    ad.src = "https://adivery.com/adivery.js";
-    document.body.appendChild(ad);
-  })();
-</script>
-<!-- کتابخانه حل معادلات نمادین -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/algebrite/1.5.0/algebrite.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.10.0/math.min.js"></script>
-<div data-adivery-id="4e2beacd-be5c-40d2-8757-4072cb348ffc"></div>
-<link rel="stylesheet" href="style.css">
+  <script>
+    (function () {
+      var ad = document.createElement("script");
+      ad.async = true;
+      ad.src = "https://adivery.com/adivery.js";
+      document.body.appendChild(ad);
+    })();
+  </script>
+  <!-- کتابخانه حل معادلات نمادین -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/algebrite/1.5.0/algebrite.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.10.0/math.min.js"></script>
+  <div data-adivery-id="4e2beacd-be5c-40d2-8757-4072cb348ffc"></div>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<nav class="bottom-nav">
-  <button onclick="showSection('prime')">🔢<span>اعداد اول</span></button>
-  <button onclick="showSection('calc')">🧮<span>ماشین حساب</span></button>
-  <button onclick="showSection('stats')">📊<span>تحلیل</span></button>
-  <button onclick="showSection('trig')">📐<span>توابع</span></button>
-  <button onclick="showSection('advancedCalculator')">🤖<span>هوشمند</span></button>
-  <button onclick="showSection('geometry')">📏<span>هندسه</span></button>
-  <button onclick="showSection('chart')">📈<span>نمودار</span></button>
-  <button onclick="showSection('help')">❓<span>راهنما</span></button>
-  <button onclick="showSection('about')">ℹ️<span>درباره</span></button>
-</nav>
-<div class="app">
-
+  <nav class="bottom-nav">
+    <button onclick="showSection('prime')">🔢<span>اعداد اول</span></button>
+    <button onclick="showSection('calc')">🧮<span>ماشین حساب</span></button>
+    <button onclick="showSection('stats')">📊<span>تحلیل</span></button>
+    <button onclick="showSection('trig')">📐<span>توابع</span></button>
+    <button onclick="showSection('advancedCalculator')">🤖<span>هوشمند</span></button>
+    <button onclick="showSection('geometry')">📏<span>هندسه</span></button>
+    <button onclick="showSection('chart')">📈<span>نمودار</span></button>
+    <button onclick="showSection('help')">❓<span>راهنما</span></button>
+    <button onclick="showSection('about')">ℹ️<span>درباره</span></button>
+  </nav>
   <div class="app">
-<header class="app-header">
-  <div class="header-content">
-    <img src="./icon.png" alt="mathlab logo" />
-    <span class="app-title">Mathlab Pro</span>
-  </div>
-</header>
 
-  <!-- Main Content -->
-  <main class="content">
+    <div class="app">
+      <header class="app-header">
+        <div class="header-content">
+          <img src="./icon.png" alt="mathlab logo" />
+          <span class="app-title">Mathlab Pro</span>
+        </div>
+      </header>
 
-    
-<!-- راهنما / Help -->
-<section id="help" class="card hidden">
-    <h3>راهنما - توابع و ابزارها</h3>
-  <br>
-    <div class="help-inline">
-      <strong>اعداد اول:</strong> 
-      isPrime() → بررسی اول بودن عدد, 
-      checkPrime() → نمایش اول یا مرکب, 
-      listPrime() → لیست اعداد اول تا n, 
-      factorPrime() → نمایش فاکتورهای عدد;
-    </div>
-  <br>
-    <div class="help-inline">
-      <strong>ماشین حساب:</strong> 
-      calcAdvanced() → محاسبه عبارات ریاضی (جمع، تفریق، ضرب، تقسیم، توان، پرانتز);
-      لطفا برای جواب درست رادیکال و ... را وقتی به رویش ضربه زدید عدد را داخل پرانتز بزارید و پرانتز ببندید.
-    </div>
-  <br>
-    <div class="help-inline">
-      <strong>تحلیل لیست:</strong> 
-      analyzeList() → بیشترین، کمترین، مجموع و میانگین لیست اعداد;
-    </div>
-  <br>
-    <div class="help-inline">
-      <strong>توابع و رادیکال:</strong> 
-      sqrt(x) → ریشه دوم،
-      cbrt(x) → ریشه سوم،
-      pow(x,y) → توان،
-      abs(x) → قدر مطلق،
-      sin(x) → سینوس (درجه)،
-      cos(x) → کسینوس (درجه)،
-      tan(x) → تانژانت (درجه)،
-      log(x) → لگاریتم طبیعی،
-      log10(x) → لگاریتم پایه 10،
-      factorial(x) → فاکتوریل،
-      gcd(a,b) → ب.م.م،
-      lcm(a,b) → ک.م.م،
-      mean(...) → میانگین،
-      variance(...) → واریانس نمونه
-    </div><br>
-    <div class="help-inline">
-      <strong>🤖 محاسبات هوشمند:</strong> 
-      در این بخش می‌توانید مسئله‌ی ریاضی خود را به صورت **متنی و آزاد** وارد کنید و سیستم به صورت هوشمند حل می‌کند.
-      <br><br>
-      <u>نمونه ورودی‌ها:</u>
-      <ul>
-        <li><strong>حل معادله:</strong> <code>حل کن: 3x + 7 = 16</code></li>
-        <li><strong>مشتق:</strong> <code>مشتق x^3</code> یا <code>مشتق sin(x^2)</code></li>
-        <li><strong>انتگرال:</strong> <code>انتگرال x^2</code></li>
-        <li><strong>محاسبات عددی:</strong> <code>(5+3)*2</code> یا <code>sqrt(16) + 4^2</code></li>
-        <li><strong>لیست اعداد:</strong> <code>1,2,3,4,5</code> (محاسبه میانگین و مجموع)</li>
-      </ul>
-      <u>نکات مهم:</u>
-      <ul>
-        <li>متغیر پیش‌فرض معادلات <strong>x</strong> است</li>
-        <li>برای توان از <code>^</code> استفاده کنید</li>
-        <li>توابع مثل <code>sin</code>، <code>cos</code>، <code>sqrt</code> باید به انگلیسی نوشته شوند</li>
-        <li>برای عبارات پیچیده از پرانتز استفاده کنید</li>
-      </ul>
-      <em>توجه: اگر مسئله شما پیچیده بود، آن را ساده‌تر یا مرحله به مرحله وارد کنید.</em>
-    </div>
-    <br>
-    <div class="help-inline">
-      <strong>هندسه:</strong> 
-      squareArea(a) → مساحت مربع, 
-      rectArea(a,b) → مساحت مستطیل, 
-      circleArea(r) → مساحت دایره, 
-      squareVol(a) → حجم مکعب, 
-      cylinderVol(r,h) → حجم استوانه, 
-      sphereVol(r) → حجم کره;
-    </div>
-  <br>
-    <div class="help-inline">
-      <strong>نمودار:</strong> 
-      drawChart() → رسم نمودار ساده از لیست اعداد;
-    </div>
-  </section>
-  <!--محاسبه-->
-  <br>
-<section id="advancedCalculator" class="card hidden">
-  <h3>🤖 محاسبات هوشمند</h3><span>(نسخه دمو)</span>
+      <!-- Main Content -->
+      <main class="content">
 
-  <textarea id="aiInput" rows="4"
-    placeholder="مسئله‌ات رو بنویس...
+
+        <!-- راهنما / Help -->
+        <section id="help" class="card hidden">
+          <h3>راهنما - توابع و ابزارها</h3>
+          <br>
+          <div class="help-inline">
+            <strong>اعداد اول:</strong>
+            isPrime() → بررسی اول بودن عدد,
+            checkPrime() → نمایش اول یا مرکب,
+            listPrime() → لیست اعداد اول تا n,
+            factorPrime() → نمایش فاکتورهای عدد;
+          </div>
+          <br>
+          <div class="help-inline">
+            <strong>ماشین حساب:</strong>
+            calcAdvanced() → محاسبه عبارات ریاضی (جمع، تفریق، ضرب، تقسیم، توان، پرانتز);
+            لطفا برای جواب درست رادیکال و ... را وقتی به رویش ضربه زدید عدد را داخل پرانتز بزارید و پرانتز ببندید.
+          </div>
+          <br>
+          <div class="help-inline">
+            <strong>تحلیل لیست:</strong>
+            analyzeList() → بیشترین، کمترین، مجموع و میانگین لیست اعداد;
+          </div>
+          <br>
+          <div class="help-inline">
+            <strong>توابع و رادیکال:</strong>
+            sqrt(x) → ریشه دوم،<br>
+            cbrt(x) → ریشه سوم،<br>
+            pow(x,y) → توان،<br>
+            abs(x) → قدر مطلق،<br>
+            sin(x) → سینوس (درجه)،<br>
+            cos(x) → کسینوس (درجه)،<br>
+            tan(x) → تانژانت (درجه)،<br>
+            log(x) → لگاریتم طبیعی،<br>
+            log10(x) → لگاریتم پایه 10،<br>
+            factorial(x) → فاکتوریل،<br>
+            gcd(a,b) → ب.م.م،<br>
+            lcm(a,b) → ک.م.م،<br>
+            mean(...) → میانگین،<br>
+            variance(...) → واریانس نمونه<br>
+            solve(عبارت جبری)<br>
+            مثال:<br>
+            solve(2x + 3x)<br>
+            solve(x^2 + 5x + 6)<br>
+            solve(3x + 9)<br>
+          </div><br>
+          <div class="help-inline">
+            <strong>🤖 محاسبات هوشمند:</strong>
+            در این بخش می‌توانید مسئله‌ی ریاضی خود را به صورت **متنی و آزاد** وارد کنید و سیستم به صورت هوشمند حل
+            می‌کند.
+            <br><br>
+            <u>نمونه ورودی‌ها:</u>
+            <ul>
+              <li><strong>حل معادله:</strong> <code>حل کن: 3x + 7 = 16</code></li>
+              <li><strong>مشتق:</strong> <code>مشتق x^3</code> یا <code>مشتق sin(x^2)</code></li>
+              <li><strong>انتگرال:</strong> <code>انتگرال x^2</code></li>
+              <li><strong>محاسبات عددی:</strong> <code>(5+3)*2</code> یا <code>sqrt(16) + 4^2</code></li>
+              <li><strong>لیست اعداد:</strong> <code>1,2,3,4,5</code> (محاسبه میانگین و مجموع)</li>
+            </ul>
+            <u>نکات مهم:</u>
+            <ul>
+              <li>متغیر پیش‌فرض معادلات <strong>x</strong> است</li>
+              <li>برای توان از <code>^</code> استفاده کنید</li>
+              <li>توابع مثل <code>sin</code>، <code>cos</code>، <code>sqrt</code> باید به انگلیسی نوشته شوند</li>
+              <li>برای عبارات پیچیده از پرانتز استفاده کنید</li>
+            </ul>
+            <em>توجه: اگر مسئله شما پیچیده بود، آن را ساده‌تر یا مرحله به مرحله وارد کنید.</em>
+          </div>
+          <br>
+          <div class="help-inline">
+            <strong>هندسه:</strong>
+            squareArea(a) → مساحت مربع,
+            rectArea(a,b) → مساحت مستطیل,
+            circleArea(r) → مساحت دایره,
+            squareVol(a) → حجم مکعب,
+            cylinderVol(r,h) → حجم استوانه,
+            sphereVol(r) → حجم کره;
+          </div>
+          <br>
+          <div class="help-inline">
+            <strong>نمودار:</strong>
+            drawChart() → رسم نمودار ساده از لیست اعداد;
+          </div>
+        </section>
+        <!--محاسبه-->
+        <br>
+        <section id="advancedCalculator" class="card hidden">
+          <h3>🤖 محاسبات هوشمند</h3><span>(نسخه دمو)</span>
+
+          <textarea id="aiInput" rows="4" placeholder="مسئله‌ات رو بنویس...
 مثال:
 حل کن: 3x + 7 = 16
 مشتق sin(x^2)
 میانگین 1,2,3,4"></textarea>
 
-  <button onclick="solveAIWithServer()">حل کن</button>
+          <button onclick="solveAIWithServer()">حل کن</button>
 
-  <div id="aiOutput"></div>
-</section>
-
-
-      
-    <!-- اعداد اول -->
-    <section id="prime" class="card">
-      <h3>اعداد اول و مرکب</h3>
-      <input id="primeInput" type="number" placeholder="یک عدد وارد کن">
-      <button onclick="checkPrime()">بررسی اول/مرکب</button>
-      <button onclick="listPrime()">لیست تا n</button>
-      <button onclick="factorPrime()">نمایش شمارنده</button>
-      <p id="primeResult"></p>
-    </section>
-
-<!-- ماشین حساب پیشرفته --> <section id="calc" class="card hidden"> <div class="calculator"> <div id="calc-display">0</div> <div class="calc-buttons"> <button onclick="clearCalc()">AC</button> <button onclick="pressParen('(')">(</button> <button onclick="pressParen(')')">)</button> <button onclick="pressOp('÷')">÷</button> <button onclick="pressNum('7')">7</button> <button onclick="pressNum('8')">8</button> <button onclick="pressNum('9')">9</button> <button onclick="pressOp('×')">×</button> <button onclick="pressNum('4')">4</button> <button onclick="pressNum('5')">5</button> <button onclick="pressNum('6')">6</button> <button onclick="pressOp('−')">−</button> <button onclick="pressNum('1')">1</button> <button onclick="pressNum('2')">2</button> <button onclick="pressNum('3')">3</button> <button onclick="pressOp('+')">+</button> <button onclick="pressNum('0')" class="zero">0</button> <button onclick="pressNum('.')">.</button> <button onclick="calculate()">=</button> <!-- علمی --> <button onclick="pressSqrt()">√</button> <button onclick="pressPow()">xʸ</button> <button onclick="backspace()">⌫</button> </div> </div> </section>
+          <div id="aiOutput"></div>
+        </section>
 
 
-    <!-- تحلیل لیست اعداد -->
-    <section id="stats" class="card hidden">
-      <h3>تحلیل لیست اعداد</h3>
-      <input id="numList" placeholder="مثلاً: 1,2,3,4,5">
-      <button onclick="analyzeList()">تحلیل</button>
-      <p id="statsResult"></p>
-    </section>
 
-    <!-- توابع و رادیکال -->
-    <section id="trig" class="card hidden">
-      <h3>توابع و رادیکال</h3>
-      <input id="trigInput" placeholder="مثلاً: sin(30), sqrt(16), cbrt(27)" type="text">
-      <button onclick="calcTrig()">محاسبه</button>
-      <p id="trigResult"></p>
-    </section>
+        <!-- اعداد اول -->
+        <section id="prime" class="card">
+          <h3>اعداد اول و مرکب</h3>
+          <input id="primeInput" type="number" placeholder="یک عدد وارد کن">
+          <button onclick="checkPrime()">بررسی اول/مرکب</button>
+          <button onclick="listPrime()">لیست تا n</button>
+          <button onclick="factorPrime()">نمایش شمارنده</button>
+          <p id="primeResult"></p>
+        </section>
 
-<!-- هندسه -->
-<section id="geometry" class="card hidden">
-  <h3>هندسه</h3>
-
-  <div class="geo-grid">
-
-    <!-- مربع -->
-    <div class="geo-item" onclick="selectGeo('squareArea')">
-      <svg width="60" height="60" viewBox="0 0 100 100">
-        <rect x="10" y="10" width="80" height="80" fill="#34d399"/>
-      </svg>
-      <span>مساحت مربع</span>
-    </div>
-
-    <!-- مستطیل -->
-    <div class="geo-item" onclick="selectGeo('rectArea')">
-      <svg width="60" height="60" viewBox="0 0 120 80">
-        <rect x="5" y="10" width="110" height="60" fill="#60a5fa"/>
-      </svg>
-      <span>مساحت مستطیل</span>
-    </div>
-
-    <!-- دایره -->
-    <div class="geo-item" onclick="selectGeo('circleArea')">
-      <svg width="60" height="60" viewBox="0 0 100 100">
-        <circle cx="50" cy="50" r="40" fill="#fbbf24"/>
-      </svg>
-      <span>مساحت دایره</span>
-    </div>
-
-    <!-- مثلث -->
-    <div class="geo-item" onclick="selectGeo('triangleArea')">
-      <svg width="60" height="60" viewBox="0 0 100 100">
-        <polygon points="50,15 10,85 90,85" fill="#a78bfa"/>
-      </svg>
-      <span>مساحت مثلث</span>
-    </div>
-
-    <!-- ذوزنقه -->
-    <div class="geo-item" onclick="selectGeo('trapezoidArea')">
-      <svg width="60" height="60" viewBox="0 0 120 80">
-        <polygon points="30,10 90,10 115,70 5,70" fill="#f472b6"/>
-      </svg>
-      <span>مساحت ذوزنقه</span>
-    </div>
-
-    <!-- متوازی الاضلاع -->
-    <div class="geo-item" onclick="selectGeo('parallelogramArea')">
-      <svg width="60" height="60" viewBox="0 0 120 80">
-        <polygon points="30,10 115,10 85,70 5,70" fill="#34d399"/>
-      </svg>
-      <span>مساحت متوازی‌الاضلاع</span>
-    </div>
-
-    <!-- لوزی -->
-    <div class="geo-item" onclick="selectGeo('rhombusArea')">
-      <svg width="60" height="60" viewBox="0 0 100 100">
-        <polygon points="50,10 90,50 50,90 10,50" fill="#fb923c"/>
-      </svg>
-      <span>مساحت لوزی</span>
-    </div>
-
-    <!-- بیضی -->
-    <div class="geo-item" onclick="selectGeo('ellipseArea')">
-      <svg width="60" height="60" viewBox="0 0 100 70">
-        <ellipse cx="50" cy="35" rx="40" ry="25" fill="#22d3ee"/>
-      </svg>
-      <span>مساحت بیضی</span>
-    </div>
-
-    <!-- مکعب -->
-    <div class="geo-item" onclick="selectGeo('squareVol')">
-      <svg width="60" height="60" viewBox="0 0 100 100">
-        <polygon points="20,30 60,10 90,30 50,50" fill="#93c5fd"/>
-        <polygon points="20,30 20,70 50,90 50,50" fill="#60a5fa"/>
-        <polygon points="50,50 90,30 90,70 50,90" fill="#3b82f6"/>
-      </svg>
-      <span>حجم مکعب</span>
-    </div>
-
-    <!-- مکعب مستطیل -->
-    <div class="geo-item" onclick="selectGeo('rectPrismVol')">
-      <svg width="60" height="60" viewBox="0 0 120 100">
-        <polygon points="20,30 70,10 110,30 60,50" fill="#a5b4fc"/>
-        <polygon points="20,30 20,80 60,100 60,50" fill="#818cf8"/>
-        <polygon points="60,50 110,30 110,80 60,100" fill="#6366f1"/>
-      </svg>
-      <span>حجم مکعب مستطیل</span>
-    </div>
-
-    <!-- استوانه -->
-    <div class="geo-item" onclick="selectGeo('cylinderVol')">
-      <svg width="60" height="60" viewBox="0 0 80 100">
-        <ellipse cx="40" cy="20" rx="28" ry="10" fill="#67e8f9"/>
-        <rect x="12" y="20" width="56" height="60" fill="#22d3ee"/>
-        <ellipse cx="40" cy="80" rx="28" ry="10" fill="#0ea5e9"/>
-      </svg>
-      <span>حجم استوانه</span>
-    </div>
-
-    <!-- مخروط -->
-    <div class="geo-item" onclick="selectGeo('coneVol')">
-      <svg width="60" height="60" viewBox="0 0 100 100">
-        <polygon points="50,10 90,90 10,90" fill="#60a5fa"/>
-        <ellipse cx="50" cy="90" rx="40" ry="10" fill="#3b82f6"/>
-      </svg>
-      <span>حجم مخروط</span>
-    </div>
-
-    <!-- کره -->
-    <div class="geo-item" onclick="selectGeo('sphereVol')">
-      <svg width="60" height="60" viewBox="0 0 100 100">
-        <radialGradient id="g">
-          <stop offset="0%" stop-color="#fecaca"/>
-          <stop offset="100%" stop-color="#f87171"/>
-        </radialGradient>
-        <circle cx="50" cy="50" r="40" fill="url(#g)"/>
-      </svg>
-      <span>حجم کره</span>
-    </div>
-
-    <!-- نیم‌کره -->
-    <div class="geo-item" onclick="selectGeo('hemisphereVol')">
-      <svg width="60" height="60" viewBox="0 0 100 60">
-        <path d="M10,50 A40,40 0 0 1 90,50 Z" fill="#fb7185"/>
-      </svg>
-      <span>حجم نیم‌کره</span>
-    </div>
-
-    <!-- هرم -->
-    <div class="geo-item" onclick="selectGeo('pyramidVol')">
-      <svg width="60" height="60" viewBox="0 0 100 100">
-        <polygon points="50,10 90,80 10,80" fill="#facc15"/>
-        <polygon points="50,10 90,80 50,95" fill="#eab308"/>
-        <polygon points="50,10 10,80 50,95" fill="#ca8a04"/>
-      </svg>
-      <span>حجم هرم</span>
-    </div>
-
-  </div>
-
-  <div id="geo-form" class="hidden">
-    <div id="geo-inputs"></div>
-    <button onclick="calcGeo()">محاسبه</button>
-    <p id="geoResult"></p>
-  </div>
-</section>
+        <!-- ماشین حساب پیشرفته -->
+        <section id="calc" class="card hidden">
+          <div class="calculator">
+            <div id="calc-display">0</div>
+            <div class="calc-buttons"> <button onclick="clearCalc()">AC</button> <button
+                onclick="pressParen('(')">(</button> <button onclick="pressParen(')')">)</button> <button
+                onclick="pressOp('÷')">÷</button> <button onclick="pressNum('7')">7</button> <button
+                onclick="pressNum('8')">8</button> <button onclick="pressNum('9')">9</button> <button
+                onclick="pressOp('×')">×</button> <button onclick="pressNum('4')">4</button> <button
+                onclick="pressNum('5')">5</button> <button onclick="pressNum('6')">6</button> <button
+                onclick="pressOp('−')">−</button> <button onclick="pressNum('1')">1</button> <button
+                onclick="pressNum('2')">2</button> <button onclick="pressNum('3')">3</button> <button
+                onclick="pressOp('+')">+</button> <button onclick="pressNum('0')" class="zero">0</button> <button
+                onclick="pressNum('.')">.</button> <button onclick="calculate()">=</button> <!-- علمی --> <button
+                onclick="pressSqrt()">√</button> <button onclick="pressPow()">xʸ</button> <button
+                onclick="backspace()">⌫</button> </div>
+          </div>
+        </section>
 
 
-    
+        <!-- تحلیل لیست اعداد -->
+        <section id="stats" class="card hidden">
+          <h3>تحلیل لیست اعداد</h3>
+          <input id="numList" placeholder="مثلاً: 1,2,3,4,5">
+          <button onclick="analyzeList()">تحلیل</button>
+          <p id="statsResult"></p>
+        </section>
+
+        <section id="trig" class="card hidden">
+
+          <h3>📐 توابع ریاضی</h3>
+
+          <div class="trig-grid">
+
+            <div class="trig-card" onclick="setTrig('sqrt')">
+              <div class="trig-icon">√</div>
+              <span>ریشه دوم</span>
+            </div>
+
+            <div class="trig-card" onclick="setTrig('cbrt')">
+              <div class="trig-icon">∛</div>
+              <span>ریشه سوم</span>
+            </div>
+
+            <div class="trig-card" onclick="setTrig('pow')">
+              <div class="trig-icon">xʸ</div>
+              <span>توان</span>
+            </div>
+
+            <div class="trig-card" onclick="setTrig('abs')">
+              <div class="trig-icon">|x|</div>
+              <span>قدر مطلق</span>
+            </div>
+
+            <div class="trig-card" onclick="setTrig('sin')">
+              <div class="trig-icon">sin</div>
+              <span>سینوس (درجه)</span>
+            </div>
+
+            <div class="trig-card" onclick="setTrig('cos')">
+              <div class="trig-icon">cos</div>
+              <span>کسینوس (درجه)</span>
+            </div>
+
+            <div class="trig-card" onclick="setTrig('tan')">
+              <div class="trig-icon">tan</div>
+              <span>تانژانت (درجه)</span>
+            </div>
+
+            <div class="trig-card" onclick="setTrig('log')">
+              <div class="trig-icon">log</div>
+              <span>لگاریتم طبیعی</span>
+            </div>
+
+            <div class="trig-card" onclick="setTrig('log10')">
+              <div class="trig-icon">log₁₀</div>
+              <span>لگاریتم پایه 10</span>
+            </div>
+
+            <div class="trig-card" onclick="setTrig('factorial')">
+              <div class="trig-icon">!</div>
+              <span>فاکتوریل</span>
+            </div>
+
+            <div class="trig-card" onclick="setTrig('gcd')">
+              <div class="trig-icon">GCD</div>
+              <span>ب.م.م</span>
+            </div>
+
+            <div class="trig-card" onclick="setTrig('lcm')">
+              <div class="trig-icon">LCM</div>
+              <span>ک.م.م</span>
+            </div>
+
+            <div class="trig-card" onclick="setTrig('mean')">
+              <div class="trig-icon">μ</div>
+              <span>میانگین</span>
+            </div>
+
+            <div class="trig-card" onclick="setTrig('variance')">
+              <div class="trig-icon">σ²</div>
+              <span>واریانس</span>
+            </div>
     
 
-    <!-- نمودار -->
-    <section id="chart" class="card hidden">
-      <h3>نمودارها</h3>
-      <input id="chartList" placeholder="مثلاً: 10,20,30,15" type="text">
-    
-      <button onclick="drawBarChart()">نمودار میله‌ای</button>
-      <button onclick="drawLineChart()">نمودار خط شکسته</button>
-      <button onclick="drawPieChart()">نمودار دایره‌ای</button>
-    
-      <canvas id="chartCanvas"></canvas>
-    </section>
-    
+            
+          </div>
 
-<section id="about" class="card hidden about-card">
+          <input id="trigInput" placeholder="فرمول را وارد کن...">
 
-  <h3>ℹ️ درباره Mathlab Pro</h3>
+          <button onclick="calcTrig()">محاسبه</button>
 
-  <p class="about-text">
-    ابزار درسی فوق حرفه‌ای<br>
-    مناسب دانش‌آموز و معلم<br>
-    ساخته شده توسط <strong>آرمان نقشبندی</strong>
-  </p>
+          <p id="trigResult"></p>
 
-  <div class="about-links">
+        </section>
 
-    <a href="https://instagram.com/arman_nagshbandi" target="_blank" class="social-btn instagram">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png">
-    </a>
+        <!-- هندسه -->
+        <section id="geometry" class="card hidden">
+          <h3>هندسه</h3>
 
-    <a href="https://wa.me/+989109440058" target="_blank" class="social-btn whatsapp">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
-    </a>
+          <div class="geo-grid">
 
-    <a href="https://myket.ir/app/com.armannagshbndi.mathlabpro" target="_blank" class="social-btn myket">
-      <img src="https://myket.ir/core/images/logo/icon.svg">
-    </a>
+            <!-- مربع -->
+            <div class="geo-item" onclick="selectGeo('squareArea')">
+              <svg width="60" height="60" viewBox="0 0 100 100">
+                <rect x="10" y="10" width="80" height="80" fill="#34d399" />
+              </svg>
+              <span>مساحت مربع</span>
+            </div>
 
-  </div>
+            <!-- مستطیل -->
+            <div class="geo-item" onclick="selectGeo('rectArea')">
+              <svg width="60" height="60" viewBox="0 0 120 80">
+                <rect x="5" y="10" width="110" height="60" fill="#60a5fa" />
+              </svg>
+              <span>مساحت مستطیل</span>
+            </div>
 
-</section>
+            <!-- دایره -->
+            <div class="geo-item" onclick="selectGeo('circleArea')">
+              <svg width="60" height="60" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="40" fill="#fbbf24" />
+              </svg>
+              <span>مساحت دایره</span>
+            </div>
 
-  </main>
+            <!-- مثلث -->
+            <div class="geo-item" onclick="selectGeo('triangleArea')">
+              <svg width="60" height="60" viewBox="0 0 100 100">
+                <polygon points="50,15 10,85 90,85" fill="#a78bfa" />
+              </svg>
+              <span>مساحت مثلث</span>
+            </div>
 
-</div>
-<script>
-async function solveAIWithServer() {
-  const input = document.getElementById("aiInput").value;
-  const output = document.getElementById("aiOutput");
+            <!-- ذوزنقه -->
+            <div class="geo-item" onclick="selectGeo('trapezoidArea')">
+              <svg width="60" height="60" viewBox="0 0 120 80">
+                <polygon points="30,10 90,10 115,70 5,70" fill="#f472b6" />
+              </svg>
+              <span>مساحت ذوزنقه</span>
+            </div>
 
-  output.innerHTML = "⏳ در حال پردازش...";
+            <!-- متوازی الاضلاع -->
+            <div class="geo-item" onclick="selectGeo('parallelogramArea')">
+              <svg width="60" height="60" viewBox="0 0 120 80">
+                <polygon points="30,10 115,10 85,70 5,70" fill="#34d399" />
+              </svg>
+              <span>مساحت متوازی‌الاضلاع</span>
+            </div>
 
-  const res = await fetch("https://mathlab-ai.vercel.app/api/ai", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ prompt: input })
-  });
+            <!-- لوزی -->
+            <div class="geo-item" onclick="selectGeo('rhombusArea')">
+              <svg width="60" height="60" viewBox="0 0 100 100">
+                <polygon points="50,10 90,50 50,90 10,50" fill="#fb923c" />
+              </svg>
+              <span>مساحت لوزی</span>
+            </div>
 
-  const data = await res.json();
-  output.innerHTML = data.answer;
-}
-</script>
+            <!-- بیضی -->
+            <div class="geo-item" onclick="selectGeo('ellipseArea')">
+              <svg width="60" height="60" viewBox="0 0 100 70">
+                <ellipse cx="50" cy="35" rx="40" ry="25" fill="#22d3ee" />
+              </svg>
+              <span>مساحت بیضی</span>
+            </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="app.js"></script>
+            <!-- مکعب -->
+            <div class="geo-item" onclick="selectGeo('squareVol')">
+              <svg width="60" height="60" viewBox="0 0 100 100">
+                <polygon points="20,30 60,10 90,30 50,50" fill="#93c5fd" />
+                <polygon points="20,30 20,70 50,90 50,50" fill="#60a5fa" />
+                <polygon points="50,50 90,30 90,70 50,90" fill="#3b82f6" />
+              </svg>
+              <span>حجم مکعب</span>
+            </div>
+
+            <!-- مکعب مستطیل -->
+            <div class="geo-item" onclick="selectGeo('rectPrismVol')">
+              <svg width="60" height="60" viewBox="0 0 120 100">
+                <polygon points="20,30 70,10 110,30 60,50" fill="#a5b4fc" />
+                <polygon points="20,30 20,80 60,100 60,50" fill="#818cf8" />
+                <polygon points="60,50 110,30 110,80 60,100" fill="#6366f1" />
+              </svg>
+              <span>حجم مکعب مستطیل</span>
+            </div>
+
+            <!-- استوانه -->
+            <div class="geo-item" onclick="selectGeo('cylinderVol')">
+              <svg width="60" height="60" viewBox="0 0 80 100">
+                <ellipse cx="40" cy="20" rx="28" ry="10" fill="#67e8f9" />
+                <rect x="12" y="20" width="56" height="60" fill="#22d3ee" />
+                <ellipse cx="40" cy="80" rx="28" ry="10" fill="#0ea5e9" />
+              </svg>
+              <span>حجم استوانه</span>
+            </div>
+
+            <!-- مخروط -->
+            <div class="geo-item" onclick="selectGeo('coneVol')">
+              <svg width="60" height="60" viewBox="0 0 100 100">
+                <polygon points="50,10 90,90 10,90" fill="#60a5fa" />
+                <ellipse cx="50" cy="90" rx="40" ry="10" fill="#3b82f6" />
+              </svg>
+              <span>حجم مخروط</span>
+            </div>
+
+            <!-- کره -->
+            <div class="geo-item" onclick="selectGeo('sphereVol')">
+              <svg width="60" height="60" viewBox="0 0 100 100">
+                <radialGradient id="g">
+                  <stop offset="0%" stop-color="#fecaca" />
+                  <stop offset="100%" stop-color="#f87171" />
+                </radialGradient>
+                <circle cx="50" cy="50" r="40" fill="url(#g)" />
+              </svg>
+              <span>حجم کره</span>
+            </div>
+
+            <!-- نیم‌کره -->
+            <div class="geo-item" onclick="selectGeo('hemisphereVol')">
+              <svg width="60" height="60" viewBox="0 0 100 60">
+                <path d="M10,50 A40,40 0 0 1 90,50 Z" fill="#fb7185" />
+              </svg>
+              <span>حجم نیم‌کره</span>
+            </div>
+
+            <!-- هرم -->
+            <div class="geo-item" onclick="selectGeo('pyramidVol')">
+              <svg width="60" height="60" viewBox="0 0 100 100">
+                <polygon points="50,10 90,80 10,80" fill="#facc15" />
+                <polygon points="50,10 90,80 50,95" fill="#eab308" />
+                <polygon points="50,10 10,80 50,95" fill="#ca8a04" />
+              </svg>
+              <span>حجم هرم</span>
+            </div>
+
+          </div>
+
+          <div id="geo-form" class="hidden">
+            <div id="geo-inputs"></div>
+            <button onclick="calcGeo()">محاسبه</button>
+            <p id="geoResult"></p>
+          </div>
+        </section>
+
+
+
+
+
+        <!-- نمودار -->
+        <section id="chart" class="card hidden">
+          <h3>نمودارها</h3>
+          <input id="chartList" placeholder="مثلاً: 10,20,30,15" type="text">
+
+          <button onclick="drawBarChart()">نمودار میله‌ای</button>
+          <button onclick="drawLineChart()">نمودار خط شکسته</button>
+          <button onclick="drawPieChart()">نمودار دایره‌ای</button>
+
+          <canvas id="chartCanvas"></canvas>
+        </section>
+
+
+        <section id="about" class="card hidden about-card">
+
+          <h3>ℹ️ درباره Mathlab Pro</h3>
+
+          <p class="about-text">
+            ابزار درسی فوق حرفه‌ای<br>
+            مناسب دانش‌آموز و معلم<br>
+            ساخته شده توسط <strong>آرمان نقشبندی</strong>
+          </p>
+
+          <div class="about-links">
+
+            <a href="https://instagram.com/arman_nagshbandi" target="_blank" class="social-btn instagram">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png">
+            </a>
+
+            <a href="https://wa.me/+989109440058" target="_blank" class="social-btn whatsapp">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
+            </a>
+
+            <a href="https://myket.ir/app/com.armannagshbndi.mathlabpro" target="_blank" class="social-btn myket">
+              <img src="https://myket.ir/core/images/logo/icon.svg">
+            </a>
+
+          </div>
+
+        </section>
+
+      </main>
+
+    </div>
+    <script>
+      async function solveAIWithServer() {
+        const input = document.getElementById("aiInput").value;
+        const output = document.getElementById("aiOutput");
+
+        output.innerHTML = "⏳ در حال پردازش...";
+
+        const res = await fetch("https://mathlab-ai.vercel.app/api/ai", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt: input })
+        });
+
+        const data = await res.json();
+        output.innerHTML = data.answer;
+      }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
