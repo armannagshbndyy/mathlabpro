@@ -1,141 +1,202 @@
 // نمایش بخش‌ها
-function showSection(id){
-    document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"));
-    document.getElementById(id).classList.remove("hidden");
-  }
-  
-  // اعداد اول
-  function isPrime(n){
-    if(n<2)return false;
-    for(let i=2;i<=Math.sqrt(n);i++)if(n%i===0)return false;
-    return true;
-  }
-  function checkPrime(){
-    let n=+document.getElementById("primeInput").value;
-    document.getElementById("primeResult").textContent = isPrime(n)?"عدد اول ✅":"عدد مرکب ❌";
-  }
-  function listPrime(){
-    let n=+document.getElementById("primeInput").value;
-    let arr=[];
-    for(let i=2;i<=n;i++)if(isPrime(i))arr.push(i);
-    document.getElementById("primeResult").textContent = `(${arr.length}) → `+arr.join(", ");
-  }
-  function factorPrime(){
-    let n=+document.getElementById("primeInput").value;
-    let factors=[];
-    for(let i=1;i<=n;i++)if(n%i===0)factors.push(i);
-    document.getElementById("primeResult").textContent = `شمارنده ها: `+factors.join(", ");
-  }
-  
-  // ماشین حساب پیشرفته
-  function calcAdvanced(){
-    let expr=document.getElementById("calcInput").value;
-    try{
-      let result=eval(expr.replace(/\^/g,"**"));
-      document.getElementById("calcResult").textContent="نتیجه: "+result;
-    }catch{
-      document.getElementById("calcResult").textContent="فرمول اشتباه!";
-    }
-  }
-  
-  // تحلیل لیست اعداد
-  function analyzeList(){
-    let nums=document.getElementById("numList").value.split(",").map(Number).filter(n=>!isNaN(n));
-    if(!nums.length){document.getElementById("statsResult").textContent="لیست معتبر نیست";return;}
-    let max=Math.max(...nums);
-    let min=Math.min(...nums);
-    let sum=nums.reduce((a,b)=>a+b,0);
-    let avg=sum/nums.length;
-    document.getElementById("statsResult").textContent=`بیشترین: ${max} | کمترین: ${min} | مجموع: ${sum} | میانگین: ${avg.toFixed(2)}`;
-  }
-  /* ============================
-   DEGREE TRIG FUNCTIONS
-============================ */
+function showSection(id) {
+  document.querySelectorAll("section").forEach(s => s.classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
+}
 
+// اعداد اول
+function isPrime(n) {
+  if (n < 2) return false;
+  for (let i = 2; i <= Math.sqrt(n); i++)if (n % i === 0) return false;
+  return true;
+}
+function checkPrime() {
+  let n = +document.getElementById("primeInput").value;
+  document.getElementById("primeResult").textContent = isPrime(n) ? "عدد اول ✅" : "عدد مرکب ❌";
+}
+function listPrime() {
+  let n = +document.getElementById("primeInput").value;
+  let arr = [];
+  for (let i = 2; i <= n; i++)if (isPrime(i)) arr.push(i);
+  document.getElementById("primeResult").textContent = `(${arr.length}) → ` + arr.join(", ");
+}
+function factorPrime() {
+  let n = +document.getElementById("primeInput").value;
+  let factors = [];
+  for (let i = 1; i <= n; i++)if (n % i === 0) factors.push(i);
+  document.getElementById("primeResult").textContent = `شمارنده ها: ` + factors.join(", ");
+}
+
+// ماشین حساب پیشرفته
+function calcAdvanced() {
+  let expr = document.getElementById("calcInput").value;
+  try {
+    let result = eval(expr.replace(/\^/g, "**"));
+    document.getElementById("calcResult").textContent = "نتیجه: " + result;
+  } catch {
+    document.getElementById("calcResult").textContent = "فرمول اشتباه!";
+  }
+}
+
+// تحلیل لیست اعداد
+function analyzeList() {
+  let nums = document.getElementById("numList").value.split(",").map(Number).filter(n => !isNaN(n));
+  if (!nums.length) { document.getElementById("statsResult").textContent = "لیست معتبر نیست"; return; }
+  let max = Math.max(...nums);
+  let min = Math.min(...nums);
+  let sum = nums.reduce((a, b) => a + b, 0);
+  let avg = sum / nums.length;
+  document.getElementById("statsResult").textContent = `بیشترین: ${max} | کمترین: ${min} | مجموع: ${sum} | میانگین: ${avg.toFixed(2)}`;
+}
+/* ============================
+ DEGREE TRIG FUNCTIONS
+============================ */
+function setTrig(type) {
+
+  let input = document.getElementById("trigInput");
+
+  switch (type) {
+
+    case "sqrt": input.value += "sqrt("; break;
+    case "cbrt": input.value += "cbrt("; break;
+    case "pow": input.value += "pow("; break;
+    case "abs": input.value += "abs("; break;
+
+    case "sin": input.value += "sin("; break;
+    case "cos": input.value += "cos("; break;
+    case "tan": input.value += "tan("; break;
+
+    case "log": input.value += "log("; break;
+    case "log10": input.value += "log10("; break;
+
+    case "factorial": input.value += "factorial("; break;
+    case "gcd": input.value += "gcd("; break;
+    case "lcm": input.value += "lcm("; break;
+
+    case "mean": input.value += "mean("; break;
+    case "variance": input.value += "variance("; break;
+
+  
+  }
+
+}
 function sinDeg(deg) {
   return Math.sin(deg * Math.PI / 180);
 }
-
+function solve(expr){
+  try{
+    return math.simplify(expr).toString();
+  }catch{
+    return "خطا در عبارت!";
+  }
+}
 function cosDeg(deg) {
   return Math.cos(deg * Math.PI / 180);
 }
 function tanDeg(deg) {
   return Math.tan(deg * Math.PI / 180);
 }
-  function calcTrig(){
-    let expr = document.getElementById("trigInput").value;
-    try{
-      let replaced = expr
-        .replace(/sqrt/g,"Math.sqrt")
-        .replace(/cbrt/g,"Math.cbrt")
-        .replace(/pow/g,"Math.pow")
-        .replace(/abs/g,"Math.abs")
-        .replace(/sin/g,"sinDeg")
-        .replace(/cos/g,"cosDeg")
-        .replace(/tan/g,"tanDeg")
-        .replace(/log10/g,"Math.log10")
-        .replace(/log/g,"Math.log")
-        .replace(/factorial/g,"factorial")
-        .replace(/gcd/g,"gcd")
-        .replace(/lcm/g,"lcm")
-        .replace(/mean/g,"mean")
-        .replace(/variance/g,"variance");
-  
-      let result = eval(replaced);
-      document.getElementById("trigResult").textContent = "نتیجه: " + result;
-    }catch{
-      document.getElementById("trigResult").textContent = "فرمول اشتباه!";
-    }
-  }
-  
-  function factorial(n){
-    if(n < 0) return NaN;
-    let r = 1;
-    for(let i = 1; i <= n; i++) r *= i;
-    return r;
-  }
-  
-  function gcd(a, b){
-    while(b !== 0){
-      [a, b] = [b, a % b];
-    }
-    return Math.abs(a);
-  }
-  
-  function lcm(a, b){
-    return Math.abs(a * b) / gcd(a, b);
-  }
-  
-  function mean(...nums){
-    return nums.reduce((a,b)=>a+b,0) / nums.length;
-  }
+
+function calcTrig() {
+
+  let expr = document.getElementById("trigInput").value;
+
+  try {
+
+    let replaced = expr
+
+      /* ریاضی پایه */
+      .replace(/\^/g, "**")
+      .replace(/×/g, "*")
+      .replace(/÷/g, "/")
+
+      /* ضرب ضمنی کامل */
+      .replace(/(\d)([a-zA-Z(])/g, "$1*$2")
+      .replace(/([a-zA-Z)])(\d)/g, "$1*$2")
+
+      /* توابع ریاضی */
+      .replace(/sqrt/g, "Math.sqrt")
+      .replace(/cbrt/g, "Math.cbrt")
+      .replace(/pow/g, "Math.pow")
+      .replace(/abs/g, "Math.abs")
+
+      /* مثلثاتی درجه */
+      .replace(/sin/g, "sinDeg")
+      .replace(/cos/g, "cosDeg")
+      .replace(/tan/g, "tanDeg")
+
+      /* لگاریتم */
+      .replace(/log10/g, "Math.log10")
+      .replace(/log/g, "Math.log")
+
+      /* سایر */
+      .replace(/factorial/g, "factorial")
+      .replace(/gcd/g, "gcd")
+      .replace(/lcm/g, "lcm")
+      .replace(/mean/g, "mean")
+      .replace(/variance/g, "variance")
 
 
-  
-  // نمودار ساده
-  function drawChart(){
-    let data=document.getElementById("chartList").value.split(",").map(Number).filter(n=>!isNaN(n));
-    const ctx=document.getElementById("chartCanvas").getContext('2d');
-    if(window.myChart)window.myChart.destroy();
-    window.myChart=new Chart(ctx,{type:'line',data:{labels:data.map((v,i)=>i+1),datasets:[{label:'اعداد',data:data,backgroundColor:'#2ecc71',borderColor:'#27ae60',fill:false}]}});
+
+    let result = eval(replaced);
+
+    document.getElementById("trigResult").textContent =
+      "نتیجه: " + result;
+
+  } catch {
+    document.getElementById("trigResult").textContent =
+      "❌ فرمول اشتباه!";
   }
-  // تابع واریانس نمونه
-function variance(...nums){
-    nums = nums.map(Number).filter(n=>!isNaN(n));
-    if(nums.length < 2) return "لیست معتبر نیست یا کمتر از دو عدد است";
-    let mean = nums.reduce((a,b)=>a+b,0)/nums.length;
-    let varSample = nums.reduce((a,b)=>a + Math.pow(b-mean,2),0)/(nums.length-1);
-    return varSample;
+}
+
+function factorial(n) {
+  if (n < 0) return NaN;
+  let r = 1;
+  for (let i = 1; i <= n; i++) r *= i;
+  return r;
+}
+
+function gcd(a, b) {
+  while (b !== 0) {
+    [a, b] = [b, a % b];
   }
-  let displayExp = "";
+  return Math.abs(a);
+}
+
+function lcm(a, b) {
+  return Math.abs(a * b) / gcd(a, b);
+}
+
+function mean(...nums) {
+  return nums.reduce((a, b) => a + b, 0) / nums.length;
+}
+
+
+
+// نمودار ساده
+function drawChart() {
+  let data = document.getElementById("chartList").value.split(",").map(Number).filter(n => !isNaN(n));
+  const ctx = document.getElementById("chartCanvas").getContext('2d');
+  if (window.myChart) window.myChart.destroy();
+  window.myChart = new Chart(ctx, { type: 'line', data: { labels: data.map((v, i) => i + 1), datasets: [{ label: 'اعداد', data: data, backgroundColor: '#2ecc71', borderColor: '#27ae60', fill: false }] } });
+}
+// تابع واریانس نمونه
+function variance(...nums) {
+  nums = nums.map(Number).filter(n => !isNaN(n));
+  if (nums.length < 2) return "لیست معتبر نیست یا کمتر از دو عدد است";
+  let mean = nums.reduce((a, b) => a + b, 0) / nums.length;
+  let varSample = nums.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / (nums.length - 1);
+  return varSample;
+}
+let displayExp = "";
 let calcExp = "";
 
-function updateDisplay(){
+function updateDisplay() {
   document.getElementById("calc-display").textContent = displayExp || "0";
 }
 
 /* دکمه‌های عددی */
-function pressNum(n){
+function pressNum(n) {
   displayExp += n;
   calcExp += n;
   updateDisplay();
@@ -144,38 +205,38 @@ let display = document.getElementById('calc-display');
 let expression = '';
 
 // وارد کردن اعداد و عملیات
-function press(val){
+function press(val) {
   expression += val;
   display.innerText = expression;
 }
 
 // وارد کردن توابع مثلثاتی و علمی
-function pressFunc(func){
+function pressFunc(func) {
   expression += func;
   display.innerText = expression;
 }
 
 // پاک کردن کامل
-function clearCalc(){
+function clearCalc() {
   expression = '';
   display.innerText = '0';
 }
 
 // حذف آخرین کاراکتر
-function backspace(){
+function backspace() {
   expression = expression.slice(0, -1);
   display.innerText = expression || '0';
 }
 
 // اضافه کردن کسر بصری
-function pressFrac(){
+function pressFrac() {
   expression += '()/()';
   display.innerText = expression;
 }
 
 // محاسبه و حل معادله با Algebrite و Math.js
-function calculate(){
-  try{
+function calculate() {
+  try {
     // جایگزینی نماد × و ÷ با * و /
     let expr = expression.replace(/×/g, '*').replace(/÷/g, '/');
 
@@ -188,14 +249,14 @@ function calculate(){
     // نمایش نتیجه ترکیبی
     display.innerText = `${numericResult} (≈ ${symbolicResult})`;
     expression = numericResult.toString();
-  } catch(err){
+  } catch (err) {
     display.innerText = 'خطا';
     expression = '';
   }
 }
 
 /* عملگرها */
-function pressOp(op){
+function pressOp(op) {
   const map = {
     "+": "+",
     "−": "-",
@@ -208,48 +269,48 @@ function pressOp(op){
 }
 
 /* رادیکال مثل گوشی */
-function pressSqrt(){
+function pressSqrt() {
   displayExp += "√(";
   calcExp += "Math.sqrt(";
   updateDisplay();
 }
 
 /* توان */
-function pressPow(){
+function pressPow() {
   displayExp += "^";
   calcExp += "**";
   updateDisplay();
 }
 
 /* پرانتز */
-function pressParen(p){
+function pressParen(p) {
   displayExp += p;
   calcExp += p;
   updateDisplay();
 }
 
 /* پاک کردن */
-function clearCalc(){
+function clearCalc() {
   displayExp = "";
   calcExp = "";
   updateDisplay();
 }
 
 /* بک‌اسپیس */
-function backspace(){
-  displayExp = displayExp.slice(0,-1);
-  calcExp = calcExp.slice(0,-1);
+function backspace() {
+  displayExp = displayExp.slice(0, -1);
+  calcExp = calcExp.slice(0, -1);
   updateDisplay();
 }
 
 /* مساوی */
-function calculate(){
-  try{
+function calculate() {
+  try {
     let result = eval(calcExp);
     displayExp = result.toString();
     calcExp = result.toString();
     updateDisplay();
-  }catch{
+  } catch {
     displayExp = "خطا";
     calcExp = "";
     updateDisplay();
